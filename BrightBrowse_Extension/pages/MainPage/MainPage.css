@@ -1,0 +1,48 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  #add-dark-pattern {
+    float: right;
+  }
+  
+  #dark-patterns {
+    margin: 15px;
+  }
+  
+  #site-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  #scan-site {
+    padding: 5px 10px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #stats, #patterns-detected {
+    margin-top: 10px;
+  }
+  
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 5px;
+  }
+  
