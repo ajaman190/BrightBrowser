@@ -36,7 +36,7 @@ The wireframes serve as a foundational blueprint for our extension's user interf
 - **Main Screen**: Displays detected dark patterns alongside descriptions and solutions.
 - **Notification & Alerts**: Informs users about newly detected dark patterns and their implications.
 
-_Note: Include wireframe images or a link to view them in this section._
+![prototype](https://github.com/ajaman190/BrightBrowser/blob/master/BrightBrowse_Extension/media/wireframe.png)
 
 ---
 
