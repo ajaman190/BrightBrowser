@@ -1,0 +1,79 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-Black.ttf') format('truetype');
+    font-weight: 900; /* Black weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-Bold.ttf') format('truetype');
+    font-weight: bold; /* Bold weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-Light.ttf') format('truetype');
+    font-weight: 300; /* Light weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-Medium.ttf') format('truetype');
+    font-weight: 500; /* Medium weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-Regular.ttf') format('truetype');
+    font-weight: normal; /* Regular weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+    font-weight: 600; /* SemiBold weight */
+    font-style: normal;
+}
+
+/* Now update the body font-family to use 'Inter' */
+body {
+    width: 360px; /* Fixed width */
+    height: 560px; /* Fixed height */
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+h2 {
+    font-size: 20px;
+    color: #666;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+}
+
+.buttonText {
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Add more global styles as needed */

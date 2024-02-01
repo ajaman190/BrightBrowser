@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir --upgrade pip
 
 # Copy and install requirements
 COPY requirements.txt /
-RUN pip install --no-cache-dir -r /requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the working directory and copy the app files
 WORKDIR /app
