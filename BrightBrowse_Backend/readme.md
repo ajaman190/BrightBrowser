@@ -7,9 +7,6 @@
 - [Dark Pattern Detection Models](#dark-pattern-detection-models)
 - [System Architecture](#system-architecture)
 - [Setup and Installation](#setup-and-installation)
-- [Contributions](#contributions)
-- [License](#license)
-- [Contact](#contact)
 
 ---
 
