@@ -44,8 +44,8 @@ We integrated advanced models to detect a variety of dark patterns, including:
 
 #### Further Reading and Links
 
-- [Extension README]([#](https://github.com/ajaman190/BrightBrowser/blob/master/BrightBrowse_Extension/readme.md)) - Delve into the technical aspects of our browser extension.
-- [Backend README]([#](https://github.com/ajaman190/BrightBrowser/blob/master/BrightBrowse_Backend/readme.md)) - Explore the backend architecture and technologies powering BrightBrowse.
+- [Extension README](https://github.com/ajaman190/BrightBrowser/blob/master/BrightBrowse_Extension/readme.md) - Delve into the technical aspects of our browser extension.
+- [Backend README](https://github.com/ajaman190/BrightBrowser/blob/master/BrightBrowse_Backend/readme.md) - Explore the backend architecture and technologies powering BrightBrowse.
 
 ---
 
