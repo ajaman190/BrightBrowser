@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Main Screen - BrightBrowse</title>
-  <link rel="stylesheet" href="MainPage.css">
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
-  <header>
-    <h1>BrightBrowse</h1>
-    <button id="add-dark-pattern">Add Dark Pattern</button>
-  </header>
-  <section id="dark-patterns">
-    <div id="site-info">
-      <span id="current-site-url">https://www.example.com</span>
-      <button id="scan-site">Scan Page</button>
+    <div id="header">
+        <button id="menuButton">☰</button>
+        <button id="addDarkPatternButton">Add Dark Pattern</button>
+        <button id="notificationButton">🔔</button>
+        <button id="settingsButton">⚙️</button>
     </div>
-    <div id="stats">
-      <!-- Stats will be dynamically populated -->
+    <div id="main-content">
+        <div id="website-info">
+            <img src="../assets/icons/website-icon.png" alt="Website Icon">
+            <span id="websiteURL">https://www.example.com</span>
+        </div>
+        <div id="scanning-container">
+            <!-- Conditional content will be inserted here by JavaScript -->
+        </div>
+        <select id="patternDropdown" style="display: none;">
+            <!-- Dropdown options will be populated by JavaScript -->
+        </select>
+        <div id="patternDetails" style="display: none;">
+            <!-- Pattern details will be inserted here by JavaScript -->
+        </div>
     </div>
-    <div id="patterns-detected">
-      <!-- Detected patterns will be dynamically populated -->
+    <div id="footer">
+        <button id="educationButton">🎓</button>
+        <div id="educativeContent">
+            <!-- Educative content will be inserted here by JavaScript -->
+        </div>
     </div>
-  </section>
-  <footer>
-    <p>Keep an eye out for surprise charges during checkout...</p>
-  </footer>
-  <script src="MainPage.js"></script>
+    <div id="menu" class="sidebar">
+        <div class="menu-item" id="profileButton">Profile</div>
+        <div class="menu-item" id="historyButton">History & Insights</div>
+        <div class="menu-item" id="educationMenuButton">Education</div>
+        <div class="menu-item" id="feedbackButton">Feedback</div>
+        <div class="menu-item" id="logoutButton">Logout</div>
+    </div>
+    <script src="../scripts/main.js"></script>
 </body>
 </html>

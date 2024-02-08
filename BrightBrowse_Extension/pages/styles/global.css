@@ -40,12 +40,11 @@
     font-style: normal;
 }
 
-/* Now update the body font-family to use 'Inter' */
 body {
     width: 360px; /* Fixed width */
     height: 560px; /* Fixed height */
     font-family: 'Inter', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #fff;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -66,14 +65,29 @@ p {
     color: #333;
 }
 
+.center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .buttonText {
+    font-weight: bold;
     font-size: 14px;
     color: #fff;
-    background-color: #007bff;
-    padding: 10px 15px;
+}
+
+.button {
+    width: 132px;
+    height: 36px;
+    margin: 10px 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    background-color: #0078d7;
+    color: white;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Add more global styles as needed */

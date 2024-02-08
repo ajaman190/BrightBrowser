@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login - BrightBrowse</title>
-  <link rel="stylesheet" href="LoginPage.css">
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
-  <div id="login-container">
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit" id="login-button">Login</button>
-      <div id="alternative-login">
-        <span>OR</span>
-      </div>
-      <button type="button" id="google-login">Sign in with Google</button>
-    </form>
-    <div id="register-link">
-      Don't have an account? <a href="SignupPage.html">Register</a>
+    <div id="header">
+        <button id="backButton">←</button>
+        <h2>Login</h2>
     </div>
-  </div>
-  <script src="LoginPage.js"></script>
+    <div id="login-container">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        
+        <label for="password">Password</label>
+        <div class="password-container">
+            <input type="password" id="password" placeholder="Enter your password">
+            <button id="togglePassword" class="toggle-password">👁️</button>
+        </div>
+        
+        <div id="forgotPassword" class="clickable-text">Forgot Password</div>
+        
+        <button id="loginButton">Login</button>
+        
+        <div class="separator">OR</div>
+        
+        <button id="googleLoginButton">Sign in with Google</button>
+        
+        <div class="footer-text">
+            Don’t have an account? <span id="register" class="clickable-text">Register</span>
+        </div>
+    </div>
+    <script src="../scripts/login.js"></script>
 </body>
 </html>

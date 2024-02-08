@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/register.css">
+</head>
+<body>
+    <div id="header">
+        <button id="backButton">←</button>
+        <h2>Sign Up</h2>
+    </div>
+    <div id="register-container">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name">
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password">
+        
+        <button id="registerButton">Register</button>
+        
+        <div class="separator">OR</div>
+        
+        <button id="googleSignUpButton">Sign up with Google</button>
+        
+        <div class="footer-text">
+            Already have an account? <span id="login" class="clickable-text">Login</span>
+        </div>
+    </div>
+    <script src="../scripts/register.js"></script>
+</body>
+</html>

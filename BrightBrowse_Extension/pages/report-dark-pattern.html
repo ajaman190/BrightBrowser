@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report a Dark Pattern</title>
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/report-dark-pattern.css">
+</head>
+<body>
+    <div id="header">
+        <button id="backButton">←</button>
+        <h2>Report a Dark Pattern</h2>
+    </div>
+    <div id="report-container">
+        <label for="websiteUrl">Website URL</label>
+        <input type="text" id="websiteUrl" placeholder="Enter the website URL">
+        
+        <label for="darkPatternCategory">Dark Pattern Category</label>
+        <select id="darkPatternCategory">
+            <option value="coercion">Coercion</option>
+            <option value="deception">Deception</option>
+            <option value="misdirection">Misdirection</option>
+            <!-- Add more options as required -->
+        </select>
+        
+        <label for="patternTopic">Topic or String of Dark Pattern</label>
+        <input type="text" id="patternTopic" placeholder="Enter the topic or string">
+        
+        <label for="patternDescription">Describe the pattern</label>
+        <textarea id="patternDescription" placeholder="Describe the pattern"></textarea>
+        
+        <label for="solution">How can users avoid or solve the issue?</label>
+        <textarea id="solution" placeholder="Suggest a solution"></textarea>
+        
+        <button id="submitReport">Submit</button>
+    </div>
+    <script src="../scripts/report-dark-pattern.js"></script>
+</body>
+</html>

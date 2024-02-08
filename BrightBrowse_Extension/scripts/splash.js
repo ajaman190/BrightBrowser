@@ -1,17 +1,18 @@
-// Assuming the access token is stored in browser storage
+document.addEventListener('DOMContentLoaded', function() {
+  checkAccessToken();
+});
+
 function checkAccessToken() {
-  browser.storage.local.get("accessToken", function(items) {
-    setTimeout(function() {
-        if (items.accessToken) {
-            // If token exists, redirect to home page
-            window.location.href = 'main.html';
-        } else {
-            // If no token, redirect to onboarding page
-            window.location.href = 'onboarding.html';
-        }
-    },2000)
-  });
+  const accessToken = localStorage.getItem('accessToken');
+  if (isValidToken(accessToken)) {
+      window.location.href = 'main.html';
+  } else {
+      window.location.href = 'onboarding.html';
+  }
 }
 
-// Call the function when the script loads
-checkAccessToken();
+function isValidToken(token) {
+  // Implement token validation logic here
+  // This is a placeholder function. It should contain actual logic to validate the access token.
+  return token && token.length > 0; // Example condition
+}

@@ -1,0 +1,63 @@
+#header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#header button {
+    margin-right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#settings-container {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#sensitivityLevel {
+    width: 100%;
+}
+
+#sensitivityLabels {
+    display: flex;
+    justify-content: space-between;
+}
+
+fieldset {
+    border: none;
+    margin: 20px 0;
+}
+
+#whitelist {
+    margin: 20px 0;
+}
+
+#whitelistEntries {
+    margin-bottom: 10px;
+}
+
+#addWebsite {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#saveButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

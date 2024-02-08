@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="styles/global.css">
-  <link rel="stylesheet" href="styles/onboarding.css">
-  <title>BrightBrowse Onboarding</title>
-
+    <meta charset="UTF-8">
+    <title>Onboarding</title>
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/onboarding.css">
 </head>
 <body>
-  <div id="onboarding-container">
-    <div id="carousel">
-      <!-- Carousel items would go here -->
+    <div id="onboarding-container" class="center-all">
+      <div id="carousel-container">
+          <!-- Carousel items -->
+          <div class="carousel-item active">
+              <img src="../assets/images/feature.png" alt="Feature 1">
+              <p>Spot and stop deceptive claims, protecting you from impulse purchases. Time to make informed decisions!</p>
+          </div>
+          <div class="carousel-item">
+              <img src="../assets/images/feature.png"  alt="Feature 2">
+              <p>Stay aware of hidden charges, avoid unexpected fees!</p>
+          </div>
+          <div class="carousel-item">
+              <img src="../assets/images/feature.png"  alt="Feature 3">
+              <p>Control your data, know when websites try to track more than they should.</p>
+          </div>
+          <!-- Carousel indicators -->
+          <div class="carousel-indicators">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+          </div>
+      </div>
+      <!-- Navigation buttons -->
+      <div class="button-group">
+          <button id="loginBtn" class="buttonText button">Login</button>
+          <button id="registerBtn" class="buttonText button">Register</button>
+      </div>
     </div>
-    <p>Spot and stop deceptive claims, protecting you from impulse purchases. Time to make informed decisions!</p>
-    <div id="navigation-buttons">
-      <button id="login">Login</button>
-      <button id="register">Register</button>
-    </div>
-  </div>
-  <script src="OnboardingPage.js"></script>
+    <script src="../scripts/onboarding.js"></script>
 </body>
 </html>

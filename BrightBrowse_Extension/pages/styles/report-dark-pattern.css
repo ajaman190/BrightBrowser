@@ -1,0 +1,53 @@
+#header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#header button {
+    margin-right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#report-container {
+    padding: 20px;
+}
+
+#report-container label {
+    display: block;
+    margin: 10px 0;
+}
+
+#report-container input, 
+#report-container select, 
+#report-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#report-container textarea {
+    height: 100px;
+    resize: vertical; /* Allows the user to resize the textarea vertically */
+    overflow: auto; /* Ensures the scrollbar appears when text exceeds the space */
+}
+
+#submitReport {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

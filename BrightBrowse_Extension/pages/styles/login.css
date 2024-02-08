@@ -1,58 +1,74 @@
-body, html {
-    margin: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-  }
-  
-  #login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  #login-form {
-    width: 80%;
-    max-width: 300px;
-  }
-  
-  #login-form input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  #login-button,
-  #google-login {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    background-color: #0078d7;
-    color: white;
-    cursor: pointer;
-  }
-  
-  #google-login {
-    background-color: #db4437;
-  }
-  
-  #alternative-login {
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  #register-link {
-    margin-top: 10px;
-  }
-  
-  #register-link a {
-    color: #0078d7;
-    text-decoration: none;
-  }
-  
+#header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+#header button {
+  margin-right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#login-container {
+  padding: 20px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#forgotPassword {
+  margin: 10px 0;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.separator {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#loginButton, #googleLoginButton {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#loginButton {
+  background-color: #007bff;
+  color: #fff;
+}
+
+#googleLoginButton {
+  background-color: #db4437;
+  color: #fff;
+}
+
+.footer-text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.clickable-text {
+  color: #007bff;
+  cursor: pointer;
+}

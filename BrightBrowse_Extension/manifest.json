@@ -13,8 +13,7 @@
       "storage"
     ],
     "background": {
-      "scripts": ["scripts/background.js"],
-      "persistent": false
+      "scripts": ["scripts/background.js"]
     },
     "content_scripts": [
       {
@@ -22,9 +21,13 @@
         "js": ["scripts/splash.js", "scripts/main.js", "scripts/onboardingjs"]
       }
     ],
+    "web_accessible_resources": [
+      "pages/*.html"
+    ],
     "browser_action": {
         "default_icon": "icons/icon48.png",
         "default_popup": "pages/splash.html",
+        "default_title": "BrightBrowse",
         "default_width": 360,
         "default_height": 560
       },

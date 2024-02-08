@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../styles/global.css">
+    <link rel="stylesheet" href="../styles/settings.css">
+</head>
+<body>
+    <div id="header">
+        <button id="backButton">←</button>
+        <h2>Settings</h2>
+    </div>
+    <div id="settings-container">
+        <label for="sensitivityLevel">Sensitivity Level</label>
+        <input type="range" id="sensitivityLevel" min="1" max="3">
+        <div id="sensitivityLabels">
+            <span>Low</span><span>Medium</span><span>High</span>
+        </div>
+
+        <fieldset>
+            <legend>Selected Patterns:</legend>
+            <label><input type="checkbox" name="patterns" value="falseUrgency"> False Urgency</label>
+            <label><input type="checkbox" name="patterns" value="basketSneaking"> Basket Sneaking</label>
+            <label><input type="checkbox" name="patterns" value="confirmShaming"> Confirm Shaming</label>
+            <label><input type="checkbox" name="patterns" value="forcedAction"> Forced Action</label>
+            <label><input type="checkbox" name="patterns" value="subscriptionTrap"> Subscription Trap</label>
+        </fieldset>
+
+        <label for="automaticScanning">Automatic Scanning</label>
+        <input type="checkbox" id="automaticScanning" checked>
+
+        <div id="whitelist">
+            <label>Whitelist Websites</label>
+            <div id="whitelistEntries">
+                <!-- Whitelisted websites will be added here -->
+            </div>
+            <button id="addWebsite">+</button>
+        </div>
+
+        <button id="saveButton">Save</button>
+    </div>
+    <script src="../scripts/settings.js"></script>
+</body>
+</html>

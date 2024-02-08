@@ -1,0 +1,55 @@
+#header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#header button {
+    margin-right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#register-container {
+    padding: 20px;
+}
+
+.separator {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#registerButton, #googleSignUpButton {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#registerButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#googleSignUpButton {
+    background-color: #db4437;
+    color: #fff;
+}
+
+.footer-text {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.clickable-text {
+    color: #007bff;
+    cursor: pointer;
+}

@@ -1,41 +1,12 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  #splash-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #f0f0f0;
-  }
-  
-  #splash-container img {
-    max-width: 100px;
-    margin-bottom: 20px;
-  }
-  
-  #splash-container h1 {
-    margin: 0;
-    color: #333;
-  }
-  
-  #splash-container p {
-    color: #666;
-  }
-  
-  #get-started {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #0078d7;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+#splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#logo {
+  width: 96px; /* Logo size as per icon in manifest */
+  height: auto;
+}
