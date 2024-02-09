@@ -7,9 +7,6 @@
 - [Dark Pattern Detection Models](#dark-pattern-detection-models)
 - [System Architecture](#system-architecture)
 - [Setup and Installation](#setup-and-installation)
-- [Contributions](#contributions)
-- [License](#license)
-- [Contact](#contact)
 
 ---
 
@@ -50,7 +47,6 @@ Our backend architecture is designed for high availability and resilience. It in
 
 - **Microservices**: Modular and independently scalable services.
 - **API Gateway**: Central access point for frontend services.
-- **Data Lake**: Consolidated storage for analysis and ML model training.
 - **Security Layer**: Ensures data integrity and privacy.
 
 (Include System Architecture Diagram Here)
