@@ -46,7 +46,7 @@ The wireframes serve as a foundational blueprint for our extension's user interf
 
 - Firefox Browser
 - Basic understanding of web technologies (HTML, CSS, JavaScript)
-- Backend Docker container running (Refer to [Backend Repository](#))
+- Backend Docker container running (Refer to [Backend Repository](https://github.com/ajaman190/BrightBrowser/blob/master/BrightBrowse_Backend/readme.md))
 
 **Installation Steps:**
 
