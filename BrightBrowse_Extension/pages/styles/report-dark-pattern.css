@@ -17,37 +17,39 @@
 }
 
 #report-container {
-    padding: 20px;
-}
-
-#report-container label {
-    display: block;
-    margin: 10px 0;
+    padding: 0 20px;
 }
 
 #report-container input, 
 #report-container select, 
 #report-container textarea {
-    width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 #report-container textarea {
     height: 100px;
-    resize: vertical; /* Allows the user to resize the textarea vertically */
-    overflow: auto; /* Ensures the scrollbar appears when text exceeds the space */
+    resize: vertical;
+    overflow: auto;
+    outline: none;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #submitReport {
     display: block;
     width: 100%;
-    padding: 10px;
     background-color: #007bff;
     color: #fff;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    align-self: center;
 }

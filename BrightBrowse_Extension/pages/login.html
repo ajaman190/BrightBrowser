@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/login.css">
 </head>
 <body>
     <div id="header">
-        <button id="backButton">←</button>
+        <img id="backButton" src="../assets/icons/chevron-left.svg" alt="back">
         <h2>Login</h2>
     </div>
     <div id="login-container">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email">
-        
-        <label for="password">Password</label>
-        <div class="password-container">
+        <div class="column">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="column">
+            <label for="password">Password</label>
             <input type="password" id="password" placeholder="Enter your password">
             <button id="togglePassword" class="toggle-password">👁️</button>
         </div>
-        
         <div id="forgotPassword" class="clickable-text">Forgot Password</div>
         
-        <button id="loginButton">Login</button>
-        
-        <div class="separator">OR</div>
-        
-        <button id="googleLoginButton">Sign in with Google</button>
+        <div class="buttons-container">
+            <button id="loginButton" class="button">Login</button>
+            <div class="separator">OR</div>
+            <button id="googleLoginButton" class="google-button">
+                <img src="../assets/images/google_logo.png" alt="Google">
+                Sign in with Google
+            </button>
+        </div>
         
         <div class="footer-text">
-            Don’t have an account? <span id="register" class="clickable-text">Register</span>
+            <p>Don’t have an account?</p> 
+            <span id="register" class="clickable-text">Register</span>
         </div>
     </div>
     <script src="../scripts/login.js"></script>

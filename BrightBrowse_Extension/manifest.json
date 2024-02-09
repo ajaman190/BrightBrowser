@@ -18,7 +18,7 @@
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["scripts/splash.js", "scripts/main.js", "scripts/onboardingjs"]
+        "js": ["scripts/*.js"]
       }
     ],
     "web_accessible_resources": [
@@ -26,7 +26,8 @@
     ],
     "browser_action": {
         "default_icon": "icons/icon48.png",
-        "default_popup": "pages/splash.html",
+        "default_popup": "pages/main.html",
+        // "default_popup": "pages/splash.html",
         "default_title": "BrightBrowse",
         "default_width": 360,
         "default_height": 560

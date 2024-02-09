@@ -2,36 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="../styles/global.css">
-    <link rel="stylesheet" href="../styles/register.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/register.css">
 </head>
 <body>
     <div id="header">
-        <button id="backButton">←</button>
+        <img id="backButton" src="../assets/icons/chevron-left.svg" alt="back">
         <h2>Sign Up</h2>
     </div>
     <div id="register-container">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" placeholder="Enter your full name">
+        <div class="column">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="Enter your full name">
+        </div>
+        <div class="column">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="column">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <div class="column">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password">
+        </div>
         
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email">
-        
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password">
-        
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" placeholder="Confirm your password">
-        
-        <button id="registerButton">Register</button>
-        
-        <div class="separator">OR</div>
-        
-        <button id="googleSignUpButton">Sign up with Google</button>
+        <div class="buttons-container">
+            <button id="registerButton" class="button">Register</button>
+            <div class="separator">OR</div>
+            <button id="googleSignUpButton" class="google-button">
+                <img src="../assets/images/google_logo.png" alt="Google">
+                Sign up with Google
+            </button>
+        </div>
         
         <div class="footer-text">
-            Already have an account? <span id="login" class="clickable-text">Login</span>
+            <p>Already have an account?</p> 
+            <span id="login" class="clickable-text">Login</span>
         </div>
     </div>
     <script src="../scripts/register.js"></script>

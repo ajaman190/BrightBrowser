@@ -17,11 +17,7 @@
 }
 
 #login-container {
-  padding: 20px;
-}
-
-.password-container {
-  position: relative;
+  padding: 0 20px;
 }
 
 .toggle-password {
@@ -34,23 +30,30 @@
 }
 
 #forgotPassword {
-  margin: 10px 0;
+  margin: 0 0 66px 0;
   color: #007bff;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .separator {
   text-align: center;
-  margin: 20px 0;
+  margin: 10px 0;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #loginButton, #googleLoginButton {
-  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  align-self: center;
 }
 
 #loginButton {
@@ -59,16 +62,41 @@
 }
 
 #googleLoginButton {
-  background-color: #db4437;
-  color: #fff;
+  background-color: #f1f2f3;
+  color: #333;
 }
 
 .footer-text {
+  width: 320px;
+  align-self: center;
+  position: absolute;
   text-align: center;
-  margin-top: 20px;
+  bottom: 14px;
 }
 
 .clickable-text {
   color: #007bff;
   cursor: pointer;
+}
+
+.google-button {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f2f3;
+  color: #333;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.google-button img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
