@@ -1,11 +1,10 @@
 from django.urls import path
-from .views import UserRegistrationView, UserLoginView, EmailVerifyView, UserSettingsView, BackendStatusView, ResendVerificationEmailView
+from .views import register_user, login_user, get_user_details, update_settings, get_settings
 
 urlpatterns = [
-    path('', BackendStatusView.as_view(), name='backend-status'),
-    path('register/', UserRegistrationView.as_view(), name='user-register'),
-    path('login/', UserLoginView.as_view(), name='user-login'),
-    path('email-verify/', EmailVerifyView.as_view(), name='email-verify'),
-    path('resend-verification/', ResendVerificationEmailView.as_view(), name='resend-verification'),
-    path('settings/', UserSettingsView.as_view(), name='user-settings'),
+    path('register/', register_user, name='register'),
+    path('login/', login_user, name='login'),
+    path('user/', get_user_details, name='user_details'),
+    path('settings/update/', update_settings, name='update_settings'),
+    path('settings/', get_settings, name='get_settings'),
 ]

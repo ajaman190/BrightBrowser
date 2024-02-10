@@ -1,41 +1,47 @@
-from rest_framework import generics, permissions
+from django.shortcuts import get_object_or_404
+from rest_framework import status, permissions
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework.decorators import permission_classes, authentication_classes
-from rest_framework.authentication import TokenAuthentication
-from .models import EducationalContent
-from .serializers import EducationalContentSerializer
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .models import Education
+from .serializers import EducationSerializer
 
+@api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
-@authentication_classes([TokenAuthentication])
-class EducationalContentView(generics.ListCreateAPIView):
-    serializer_class = EducationalContentSerializer
+def get_tips(request):
+    tips = Education.objects.filter(type='tip')
+    serializer = EducationSerializer(tips, many=True)
+    return Response(serializer.data)
 
-    def get_queryset(self):
-        return EducationalContent.objects.all()
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def get_articles(request):
+    articles = Education.objects.filter(type='article')
+    serializer = EducationSerializer(articles, many=True)
+    return Response(serializer.data)
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+@api_view(['POST'])
+@permission_classes([permissions.IsAdminUser])
+def add_education(request):
+    serializer = EducationSerializer(data=request.data)
+    if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=201)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([TokenAuthentication])
-class EducationalContentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = EducationalContentSerializer
-
-    def get_queryset(self):
-        return EducationalContent.objects.all()
-
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
+@api_view(['PUT'])
+@permission_classes([permissions.IsAdminUser])
+def update_education(request, pk):
+    education = get_object_or_404(Education, pk=pk)
+    serializer = EducationSerializer(education, data=request.data)
+    if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.delete()
-        return Response(status=204)
+@api_view(['DELETE'])
+@permission_classes([permissions.IsAdminUser])
+def delete_education(request, pk):
+    education = get_object_or_404(Education, pk=pk)
+    education.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

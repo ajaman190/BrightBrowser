@@ -1,41 +1,64 @@
-from rest_framework import serializers
+from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-from .models import User, UserSettings
+from django.contrib.auth import authenticate
+from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
+from .models import UserProfile, Whitelist
+from datetime import datetime, timedelta
 
-# Serializer for user registration.
-# Includes password validation and ensures password and confirm password match.
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
+    confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'password2', 'first_name', 'last_name')
+        fields = ['first_name', 'last_name', 'email', 'password', 'confirm_password']
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
+        if attrs['password'] != attrs.pop('confirm_password'):
             raise serializers.ValidationError({"password": "Password fields didn't match."})
+        validate_password(attrs['password'])
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create(
+        user = User.objects.create_user(
             email=validated_data['email'],
+            username=validated_data['email'],
+            password=validated_data['password'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name']
         )
-        user.set_password(validated_data['password'])
-        user.save()
         return user
 
-# Serializer for user login.
-# Validates email and password.
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
-    password = serializers.CharField(required=True)
+    email = serializers.EmailField()
+    password = serializers.CharField()
 
-# Serializer for user settings.
-class UserSettingsSerializer(serializers.ModelSerializer):
+    def validate(self, attrs):
+        user = authenticate(email=attrs['email'], password=attrs['password'])
+        if user:
+            refresh = RefreshToken.for_user(user)
+            return {
+                'access': str(refresh.access_token),
+                'user_id': user.id,
+                'exp': (datetime.now() + timedelta(days=90)).date()
+            }
+        else:
+            raise serializers.ValidationError('Unable to log in with provided credentials.')
+
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserSettings
-        fields = '__all__'
-        extra_kwargs = {'user': {'read_only': True}}
+        model = UserProfile
+        fields = ['severity', 'allowed_pattern', 'auto_scan']
+
+class WhitelistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Whitelist
+        fields = ['url']
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']

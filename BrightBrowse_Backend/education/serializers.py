@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import EducationalContent
+from .models import Education
 
-class EducationalContentSerializer(serializers.ModelSerializer):
+class EducationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = EducationalContent
-        fields = '__all__'
+        model = Education
+        fields = ['id', 'type', 'title', 'description', 'link']
