@@ -8,32 +8,39 @@
       "96": "assets/icons/logo.png"
     },
     "permissions": [
+      "tabs",
       "activeTab",
       "notifications",
-      "storage"
+      "storage",
+      "webRequest",
+      "webRequestBlocking",
+      "webNavigation",
+      "http://localhost:8000/*",
+      "https://localhost:8000/*"
     ],
     "background": {
       "scripts": ["scripts/background.js"]
     },
+    "action": {
+      "default_popup": "pages/splash.html"
+    },
     "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["scripts/*.js"]
-      }
+        {
+            "matches": ["<all_urls>"],
+            "js": ["scripts/*.js"]
+        }
     ],
     "web_accessible_resources": [
-      "pages/*.html"
+        "pages/*.html"
     ],
     "browser_action": {
         "default_icon": "icons/icon48.png",
-        "default_popup": "pages/main.html",
-        // "default_popup": "pages/splash.html",
-        "default_title": "BrightBrowse",
-        "default_width": 360,
-        "default_height": 560
-      },
+        // "default_popup": "pages/settings.html",
+        "default_popup": "pages/splash.html",
+        "default_title": "BrightBrowse"
+    },
     "options_ui": {
-      "page": "options.html",
-      "chrome_style": true
+        "page": "options.html",
+        "chrome_style": true
     }
 }

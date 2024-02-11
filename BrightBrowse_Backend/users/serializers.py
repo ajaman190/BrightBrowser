@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -19,7 +20,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs.pop('confirm_password'):
             raise serializers.ValidationError({"password": "Password fields didn't match."})
-        validate_password(attrs['password'])
+        try:
+            validate_password(attrs['password'])
+        except ValidationError as e:
+            raise serializers.ValidationError({"password": list(e.messages)})
         return attrs
 
     def create(self, validated_data):
@@ -37,16 +41,17 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
     def validate(self, attrs):
-        user = authenticate(email=attrs['email'], password=attrs['password'])
-        if user:
-            refresh = RefreshToken.for_user(user)
-            return {
-                'access': str(refresh.access_token),
-                'user_id': user.id,
-                'exp': (datetime.now() + timedelta(days=90)).date()
-            }
-        else:
+        user = authenticate(username=attrs['email'], password=attrs['password'])  # Use username for authentication
+        if not user:
             raise serializers.ValidationError('Unable to log in with provided credentials.')
+        if not user.is_active:
+            raise serializers.ValidationError('User account is disabled.')
+        refresh = RefreshToken.for_user(user)
+        return {
+            'access': str(refresh.access_token),
+            'user_id': user.id,
+            'exp': (datetime.now() + timedelta(days=90)).date()
+        }
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:

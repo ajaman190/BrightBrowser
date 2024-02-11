@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import create_scan, start_scan, fetch_scan_result, fetch_past_scan_results, report_pattern, fetch_dark_pattern_types, fetch_sub_dark_pattern_types, add_dark_pattern_type, edit_dark_pattern_type, delete_dark_pattern_type,
+from .views import create_scan, start_scan, fetch_scan_result, fetch_past_scan_results, report_pattern, fetch_dark_pattern_types, fetch_sub_dark_pattern_types, add_dark_pattern_type, edit_dark_pattern_type, delete_dark_pattern_type
 
 urlpatterns = [
     path('create/', create_scan, name='create_scan'),

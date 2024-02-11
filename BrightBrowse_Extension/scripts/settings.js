@@ -2,6 +2,26 @@ document.getElementById('backButton').addEventListener('click', () => {
     window.location.href = 'main.html';
 });
 
+function updateScanningContainer(caseNumber) {
+    const scanningContainer = document.getElementById('scanning-container');
+    switch(caseNumber) {
+        case 1:
+            scanningContainer.innerHTML = '<button id="scanButton">Scan the Page</button>';
+            document.getElementById('scanButton').addEventListener('click', performScan);
+            break;
+        case 2:
+            scanningContainer.innerHTML = '<img src="../assets/icons/scanning.gif" alt="Scanning..."><div id="cancelScan">Cancel Scan</div>';
+            // Add cancellation functionality if needed
+            performScan();
+            break;
+        case 3:
+            displayScanResults();
+            break;
+        default:
+            scanningContainer.innerHTML = 'Please choose an action.';
+    }
+  }
+
 document.getElementById('addWebsite').addEventListener('click', () => {
     const whitelistEntries = document.getElementById('whitelistEntries');
     const newEntry = document.createElement('div');

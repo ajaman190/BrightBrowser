@@ -10,8 +10,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV DEBIAN_FRONTEND noninteractive
 
 # Upgrade pip and install Gunicorn
-RUN pip install --no-cache-dir --upgrade pip
-# RUN pip install gunicorn==20.1.0
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install gunicorn==20.1.0
 
 # Copy and install requirements
 COPY requirements.txt /
@@ -21,11 +21,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 WORKDIR /app
 COPY . /app
 
-# Collect static files
-# RUN python manage.py collectstatic --noinput
-
-# Command to run the development server
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
-# Specify the command to run the app using Gunicorn
-# CMD ["gunicorn", "BrightBrowse_Backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+RUN python manage.py collectstatic --noinput

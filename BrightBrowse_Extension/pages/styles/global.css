@@ -41,8 +41,8 @@
 }
 
 body {
-    width: 360px; /* Fixed width */
-    height: 560px; /* Fixed height */
+    width: 360px !important;
+    height: 560px !important;
     font-family: 'Inter', sans-serif;
     background-color: #fff;
     margin: 0;
@@ -117,6 +117,30 @@ p {
 #backButton:hover {
     background-color: #e9e9e9;
 }
+
+.circleButton {
+    color: #b8b8b8;
+    padding: 4px;
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+.circleButton:hover {
+    background-color: #e9e9e9;
+}
+
+.squareButton {
+    padding: 2px;
+    border: 1px solid #b8b8b8;
+    color: #b8b8b8;
+    border-radius: 6px;
+    cursor: pointer;
+    align-self: center;
+}
+
+.squareButton:hover {
+    background-color: #e9e9e9;
+}
   
 .button {
     width: 132px;
@@ -138,7 +162,17 @@ p {
     font-size: 14px;
     color: #fff;
 }
-  
+
+#header {
+    height: 46px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
 #header h2 {
     flex-grow: 1;

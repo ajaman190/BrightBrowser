@@ -8,18 +8,23 @@
 </head>
 <body>
     <div id="header">
-        <button id="backButton">←</button>
+        <img id="backButton" src="../assets/icons/chevron-left.svg" alt="back">
         <h2>Settings</h2>
     </div>
     <div id="settings-container">
-        <label for="sensitivityLevel">Sensitivity Level</label>
-        <input type="range" id="sensitivityLevel" min="1" max="3">
-        <div id="sensitivityLabels">
-            <span>Low</span><span>Medium</span><span>High</span>
+        <div class="column">
+            <label for="sensitivityLevel">Sensitivity Level</label>
+            <div class="row"> 
+                <input type="range" id="sensitivityLevel" min="1" max="3">
+                <div id="sensitivityLabels">
+                    <span>Low</span><span>Medium</span><span>High</span>
+                </div>
+            </div>
         </div>
 
         <fieldset>
-            <legend>Selected Patterns:</legend>
+            <label for="sensitivityLevel">Selected Patterns:</label>
+            <!-- <legend>Selected Patterns:</legend> -->
             <label><input type="checkbox" name="patterns" value="falseUrgency"> False Urgency</label>
             <label><input type="checkbox" name="patterns" value="basketSneaking"> Basket Sneaking</label>
             <label><input type="checkbox" name="patterns" value="confirmShaming"> Confirm Shaming</label>

@@ -2,24 +2,15 @@
 #header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-#header button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
 }
 
 /* Main content */
 #main-content {
   padding: 20px;
+}
+
+#addDarkPatternButton {
+  margin-right: 14px;
 }
 
 #website-info {
@@ -33,74 +24,205 @@
 }
 
 #scanning-container {
+  height: 100px;
   text-align: center;
+  padding: 20px 0;
+  border-style: solid;
+  border-width: 0;
+  border-top-width: 1px;
+  border-color: #E0E0E0;
+  align-items: center;
+  background-color: #EDF4FC;
+  width: 100%;
+  justify-content: center;
+}
+
+.solution-div {
+  width: 100%;
+  background-color: #f7fdf9;
+  padding: 4px;
+  font-size: 11px;
+}
+
+.search_icon {
+  height: 20px;
+  width: 20px;
+  fill: #187BD8;
+  color: #187BD8;
+}
+
+.scanning-text {
+  font-size: 14px;
+  color: #187BD8;
+  margin-left: 4px;
+  font-weight: 600;
 }
 
 /* Dropdown */
 #patternDropdown {
   width: 100%;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+#patternDropdown:focus #patternDropdown:active{
+  outline: none;
 }
 
 /* Pattern Details */
 #patternDetails {
-  margin-top: 20px;
+  margin-top: 10px;
+  padding: 10px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.result-card {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E0E0E0;
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  padding: 4px 10px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #4E4F5A;
 }
 
 /* Footer */
 #footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #fff;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  background-color: #EBF5FF;
   position: fixed;
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
+  font-size: 12px;
+  color: #575757;
 }
 
 #educationButton {
-  background: none;
-  border: none;
+  width: 15px;
+  height: 15px;
+  fill: #187BD8;
   cursor: pointer;
-  font-size: 24px;
 }
 
 #educativeContent {
-  flex-grow: 1;
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 /* Sidebar Menu */
 .sidebar {
-  height: 100%;
   width: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
-  overflow-x: hidden;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
   transition: 0.5s;
-  padding-top: 60px;
+  overflow-x: hidden;
+  padding-top: 70px;
+  padding-bottom: 15px;
+  border-radius: 10px;
 }
 
 .menu-item {
+  width: 180px;
   padding: 10px 15px;
   text-decoration: none;
   font-size: 18px;
-  color: white;
+  color: #161616;
   display: block;
   transition: 0.3s;
+  border-radius: 10px;
 }
 
 .menu-item:hover {
-  background-color: #575757;
+  background-color: #E6F3FF;
 }
 
 .menu-open {
-  width: 250px; /* Width of sidebar when it's open */
+  width: 240px;
+}
+
+.outline-box {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: #E0E0E0;
+  width: 100%;
+  display: block;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.browser_icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 13px;
+  margin-right: 2px;
+}
+
+.browser_url {
+  font-size: 12px;
+  color: #6B7280;
+}
+
+.statistic-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  flex-basis: calc(33.333% - 10px);
+  margin: 0 5px;
+}
+
+.statistic-value {
+  display: block;
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.statistic-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B7280;
+}
+
+.red {
+  color: #FF5959;
+}
+
+.orange {
+  color: #FC973A
+}
+
+.green {
+  color: #43B581;
+}
+
+.scrollable {
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+/* Hide the scroll bars (Chrome, Safari) */
+.scrollable::-webkit-scrollbar {
+  display: none;
 }

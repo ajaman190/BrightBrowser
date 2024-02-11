@@ -16,8 +16,8 @@ document.getElementById('forgotPassword').addEventListener('click', () => {
 document.getElementById('loginButton').addEventListener('click', () => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  // Implement API call for login here...
-  // On success, store the access token in storage and navigate to the main page
+
+  login(email, password);
 });
 
 document.getElementById('googleLoginButton').addEventListener('click', () => {
@@ -28,21 +28,28 @@ document.getElementById('register').addEventListener('click', () => {
   window.location.href = 'register.html';
 });
 
-// Placeholder function for API call
 function login(email, password) {
-  fetch('api-endpoint-for-login', {
+  fetch('http://localhost:8000/user/login/', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
   })
-  .then(response => response.json())
+  .then(response => {
+    console.log(response)
+    if (!response.ok) {
+      throw new Error('Login failed');
+    }
+    return response.json();
+  })
   .then(data => {
+    console.log("Data: ", JSON.stringify(data))
       localStorage.setItem('accessToken', data.accessToken);
       window.location.href = 'main.html';
   })
   .catch(error => {
+      console.log(error);
       console.error('Error:', error);
   });
 }

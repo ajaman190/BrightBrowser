@@ -8,28 +8,31 @@
 </head>
 <body>
     <div id="header">
-        <button id="menuButton">☰</button>
-        <button id="addDarkPatternButton">Add Dark Pattern</button>
-        <button id="notificationButton">🔔</button>
-        <button id="settingsButton">⚙️</button>
+        <img id="menuButton" class="squareButton" src="../assets/icons/menu.svg" alt="setting">
+        <div class="row">
+            <button id="addDarkPatternButton" class="button">Add Dark Pattern</button>
+            <img id="notificationButton" class="circleButton" src="../assets/icons/bell.svg" alt="notification">
+            <img id="settingsButton" class="squareButton" src="../assets/icons/setting.svg" alt="setting">
+        </div>
     </div>
     <div id="main-content">
-        <div id="website-info">
-            <img src="../assets/icons/website-icon.png" alt="Website Icon">
-            <span id="websiteURL">https://www.example.com</span>
+        <div class="outline-box top-container">
+            <div id="website-info" class="row">
+                <!-- Dynamic content will be inserted by JavaScript -->
+            </div>
+            <div id="scanning-container" class="row">
+                <!-- Conditional content will be inserted here by JavaScript -->
+            </div>
         </div>
-        <div id="scanning-container">
-            <!-- Conditional content will be inserted here by JavaScript -->
-        </div>
-        <select id="patternDropdown" style="display: none;">
+        <select id="patternDropdown" class="outline-box" style="display: none;">
             <!-- Dropdown options will be populated by JavaScript -->
         </select>
-        <div id="patternDetails" style="display: none;">
+        <div id="patternDetails" class="outline-box scrollable" style="display: none;">
             <!-- Pattern details will be inserted here by JavaScript -->
         </div>
     </div>
     <div id="footer">
-        <button id="educationButton">🎓</button>
+        <img id="educationButton" src="../assets/icons/hat.svg" alt="tips">
         <div id="educativeContent">
             <!-- Educative content will be inserted here by JavaScript -->
         </div>
@@ -44,3 +47,5 @@
     <script src="../scripts/main.js"></script>
 </body>
 </html>
+
+
