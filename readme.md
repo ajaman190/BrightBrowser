@@ -39,6 +39,10 @@ We integrated advanced models to detect a variety of dark patterns, including:
 - **Fake Review Detection**: A RoBERTa-based model distinguishing genuine from fake reviews.
 - **Malicious URL Detection**: An XGBoost classifier to categorize URLs and protect users from harmful links.
 - **Price Manipulation Detection**: Analyzing price trends to identify potential manipulative practices.
+- **Basket Sneaking Detection**: Uses YOLO to spot unapproved cart additions via price text analysis.
+- **Trick Question Detection**: Applies keyword scoring to reveal trick questions.
+- **Countdown Timer Detection**: Flags countdowns through text-based numerical decline.
+- **Forced Continuity Detection**: Detects hidden fees in English using specific regex.
 
 ---
 
