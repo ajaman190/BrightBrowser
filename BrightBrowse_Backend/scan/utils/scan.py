@@ -9,13 +9,15 @@ nltk.download('wordnet')
 
 class DarkPatternDetector:
     def __init__(self):
-        # Load the models and vectorizer just once during initialization
         self.vectorizer = self._load_pickle('models/fitted_count_vectorizer.pkl')
         self.model = self._load_pickle('models/best_logistic_model.pkl')
         self.label_mapping = {
             0: "No Dark Pattern",
-            1: "Deceptive UI Dark Pattern",
-            2: "Semi Dark Pattern"
+            1: "Urgency",
+            2: "Scarcity",
+            3: "Social Proof",
+            4: "Misdirection",
+            5: "Persuasive Pattern"
         }
         self.lemmatizer = WordNetLemmatizer()
 
@@ -65,7 +67,6 @@ class DarkPatternDetector:
             'dark_pattern': self.label_mapping[label_prediction[0]]
         }
 
-# The DarkPatternDetector class is instantiated once here
 detector = DarkPatternDetector()
 
 def find_dark_patterns(extracted_texts):
@@ -73,8 +74,8 @@ def find_dark_patterns(extracted_texts):
     for text in extracted_texts:
         try:
             result = detector.predict_label_for_text(text)
-            results.append(result)
+            if(result['dark_pattern'] != "No Dark Pattern"):
+                results.append(result)
         except Exception as e:
-            # Log the error
             print(f"Error during pattern detection for text '{text}': {e}")
     return results
