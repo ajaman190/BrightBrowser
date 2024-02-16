@@ -4,25 +4,24 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Scan, Result, DarkPatternType, SubDarkPatternType, Report
+from users.models import UserProfile
 from .serializers import ScanSerializer, ResultSerializer, DarkPatternTypeSerializer, SubDarkPatternTypeSerializer, ReportSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from utils.main import main
+from utils.malicious import malecious_url_check
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def create_scan(request):
-
-    def malecious_url_check(url):
-        # todo
-        return 50
-
     url = request.data.get('url')
     severity = request.data.get('severity')
     user_id = request.user.id
     current_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     scan_id = f"{user_id}_{current_time}"
-    risk_score = malecious_url_check(url)
+    # risk_score = malecious_url_check(url)  TODO: when model fixed then uncomment it
+    risk_score = 50
     success = risk_score < 70
 
     scan = Scan.objects.create(
@@ -41,17 +40,26 @@ def create_scan(request):
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def start_scan(request):
-    # Send the data extraction and processing service
-    def send_to_service(url, severity, risk_score, content, scan_id):
-        
-        return True
-
     scan_id = request.data.get('scan_id')
     content = request.data.get('content')
-    scan = Scan.objects.get(scan_id=scan_id)
-    success = send_to_service(scan.url, scan.severity, scan.risk_score, content, scan.scan_id)
 
-    return Response({"message": "Scan complete."}, status=200 if success else 400)
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    allowed_pattern = user_profile.allowed_pattern
+    scan = Scan.objects.get(scan_id=scan_id)
+
+    results = main(scan.url, scan.severity, content, allowed_pattern)
+
+    if not results:
+        return Response({"message": "Scan failed or no results found."}, status=400)
+
+    response_data = {
+        "message": "Scan complete",
+        "scan_id": scan.scan_id,
+        "url": scan.url,
+        "severity": scan.severity,
+        "results": results
+    }
+    return Response(response_data, status=200)
 
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])

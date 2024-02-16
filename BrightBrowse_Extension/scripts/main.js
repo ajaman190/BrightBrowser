@@ -158,14 +158,40 @@ const dummyData = [
               "solution": "Check offer details for more information"
           }
       ]
+  },
+  {
+    "scan_id": "789",
+    "url": "https://cart.ebay.com/",
+    "severity": "low",
+    "results": [
+      {
+        "index": "1",
+        "text": "You're signed out right now. To save these items or see your previously saved items, sign in.",
+        "dark_pattern": "Forced Action",
+        "sub_dark_pattern": "Forced Account Creation",
+        "solution": "Check the account creation details before commiting"
+      }
+    ]
+  },
+  {
+    "scan_id": "101112",
+    "url": "https://www.sportsdirect.com/",
+    "severity": "low",
+    "results": [
+      {
+        "index": "1",
+        "text": "Our website uses cookies and similar technologies to personalise the ads that are shown to you and to help give you the best experience on our websites. For more information see our Privacy and Cookie Policy",
+        "dark_pattern": "Trick Question Detection",
+        "sub_dark_pattern": "Misleading Pattern",
+        "solution": "Check the privacy agreement properly to understand further before proceeding"
+      }
+    ]
   }
 ]
 ;
 
 async function initializePage() {
   const autoScanSetting = JSON.parse(localStorage.getItem('auto_scan') || 'false');
-  
-  // Update the scanning container based on the autoScanSetting
   updateScanningContainer(autoScanSetting ? 2 : 1);
   
   fetchWebsiteInfo();
@@ -188,17 +214,6 @@ function fetchWebsiteInfo() {
   });
 }
 
-
-// function fetchWebsiteInfo() {
-//   // This function should fetch the current page logo and URL using browser or chrome APIs
-//   // For demonstration purposes, placeholders are used
-//   const websiteInfoContainer = document.getElementById('website-info');
-//   websiteInfoContainer.innerHTML = `
-//     <img src="../assets/icons/website-icon.png" alt="Website Icon">
-//     <span id="websiteURL">https://www.example.com</span>
-//   `;
-// }
-
 function updateScanningContainer(caseNumber) {
   const scanningContainer = document.getElementById('scanning-container');
   switch(caseNumber) {
@@ -219,53 +234,135 @@ function updateScanningContainer(caseNumber) {
   }
 }
 
+function highlightMatchingElements(response) {
+  response.results.forEach(result => {
+      const escapedText = result.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(escapedText, 'i');
+
+      document.querySelectorAll('*').forEach(element => {
+          if (regex.test(element.innerText) && !element.hasAttribute('data-highlighted')) {
+              element.style.border = '2px solid red'; // Example of highlighting
+              element.setAttribute('data-highlighted', 'true'); // Mark element to avoid duplicate processing
+
+              // Optionally, add a floating icon next to the element
+              // const icon = document.createElement('img');
+              // icon.src = 'URL_TO_YOUR_ICON'; // Set the URL to your icon
+              // icon.style.cssText = 'position:absolute;width:20px;height:20px;';
+              // element.style.position = 'relative';
+              // element.insertBefore(icon, element.firstChild);
+          }
+      });
+  });
+}
+
+function extractAndJoinTextContent() {
+  let allText = '';
+  function walkTheDOM(node, func) {
+      func(node);
+      node = node.firstChild;
+      while (node) {
+          walkTheDOM(node, func);
+          node = node.nextSibling;
+      }
+  }
+
+  function handleNode(node) {
+      if (node.nodeType === 1 && !['SCRIPT', 'STYLE'].includes(node.tagName)) {
+          if (!node.children.length) {
+              const text = node.innerText || node.textContent.trim();
+              if (text) {
+                  allText += text + '<bbext>';
+              }
+          }
+      }
+  }
+  walkTheDOM(document.body, handleNode);
+  return allText;
+}
+
 function performScan() {
-  // Simulate an API call to initiate scanning with a timeout
   const scanningContainer = document.getElementById('scanning-container');
   scanningContainer.innerHTML = `
     <img src="../assets/icons/search.svg" class="search_icon"  alt="Scanning...">
     <div class="scanning-text">Scanning...</div>
   `;
-  // setTimeout(() => {
-  //   const scanId = 'SCAN_ID'; // This should be retrieved from the API response
-  //   localStorage.setItem('scan_id', scanId);
-  //   displayScanResults(scanId); // Pass the scanId to display the results
-  // }, 3000); // Simulate a 3-second API call delay
 
-  setTimeout(() => {
+  browser.tabs.executeScript({
+    code: `(${extractAndJoinTextContent.toString()})()`
+  }).then((results) => {
+    let extractedContent = results[0];
+    console.log(extractedContent)
+
     if(dummyDataIndex >= dummyData.length) dummyDataIndex = 0;
     const scanData = dummyData[dummyDataIndex++];
     localStorage.setItem('count', dummyDataIndex);
     localStorage.setItem('scan_data', JSON.stringify(scanData));
-    displayScanResults(scanData);
-  }, 3000);
+    setTimeout(() => {
+      displayScanResults(scanData);
+    }, 3000);
+    
+    // Example of how you might structure the data for your backend API call
+    // (Replace URL and options with your actual backend API details)
+    /*
+    fetch('YOUR_BACKEND_API_ENDPOINT', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        scan_id: scanData.scan_id,
+        url: tabs[0].url, // current web page URL from the browser tab
+        content: extractedContent, // Extracted content from the current page
+        scan_settings: {} // any additional scan settings if needed
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Process and display the scan results from your backend here
+      displayScanResults(data);
+      highlightMatchingElements(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    */
+
+  }).catch((error) => {
+    console.error('Failed to extract content:', error);
+  });
 }
+
+// function performScan() {
+//   // Simulate an API call to initiate scanning with a timeout
+//   const scanningContainer = document.getElementById('scanning-container');
+//   scanningContainer.innerHTML = `
+//     <img src="../assets/icons/search.svg" class="search_icon"  alt="Scanning...">
+//     <div class="scanning-text">Scanning...</div>
+//   `;
+
+//   // Todo:
+//   // API call to scan api, it requires the following parameters to in the request body:
+//   // 1. scan_id
+//   // 2. url: current web page
+//   // 3. content: if sensitivity HIGH then attach webpage extracted content condensed string by <bright-browser> else leave empty string ""
+//   // 5. scan_settings
+
+
+//   // Simulate a 3-second API call delay
+//   setTimeout(() => {
+//     if(dummyDataIndex >= dummyData.length) dummyDataIndex = 0;
+//     const scanData = dummyData[dummyDataIndex++];
+//     localStorage.setItem('count', dummyDataIndex);
+//     localStorage.setItem('scan_data', JSON.stringify(scanData));
+//     displayScanResults(scanData);
+//   }, 3000);
+// }
 
 function cancelScan() {
   // Placeholder for functionality to cancel the scan
   // Depending on the API, you might need to send a cancellation request here
   updateScanningContainer(1);
 }
-
-// function displayScanResults(scanId) {
-//   // Simulate fetching scan results after getting a scanId
-//   const scanningContainer = document.getElementById('scanning-container');
-//   scanningContainer.innerHTML = `
-//     <div>Total Detected: 20</div>
-//     <div>Unique Pattern: 5</div>
-//     <div>Rescues Initiated: 3</div>
-//   `;
-//   // Display the dropdown and populate it with the results
-//   document.getElementById('patternDropdown').style.display = 'block';
-//   populatePatternDropdown();
-// }
-
-
-// scanningContainer.innerHTML = `
-//   <div>Total Detected${scanData.results.length}</div>
-//   <div>Unique Pattern ${new Set(scanData.results.map(result => result.dark_pattern)).size}</div>
-//   <div>Rescues Initiated ${scanData.results.filter(result => result.solution).length}</div>
-// `;
 
 function displayScanResults(scanData) {
   const scanningContainer = document.getElementById('scanning-container');
@@ -298,6 +395,7 @@ function populatePatternDropdown(scanData) {
 }
 
 function displayPatternDetails(scanData, selectedPattern) {
+  highlightMatchingElements(scanData);
   const patternDetails = document.getElementById('patternDetails');
   let filteredResults = scanData.results;
   
@@ -308,7 +406,7 @@ function displayPatternDetails(scanData, selectedPattern) {
   const resultCards = filteredResults.map(result => `
     <div>
       <div class="result-card">
-        <h3>Dark Pattern ${result.sub_dark_pattern}</h3>
+        <h3>${result.sub_dark_pattern}</h3>
         <p>Reported as: ${result.dark_pattern}</p>
         <p class="red">${result.text}</p>
         <div class="solution-div">
@@ -327,33 +425,8 @@ function displayPatternDetails(scanData, selectedPattern) {
   patternDetails.innerHTML = resultCards;
 }
 
-
-// function populatePatternDropdown() {
-//   const patternDropdown = document.getElementById('patternDropdown');
-//   const patterns = ['Nagging', 'Misdirection', 'Hidden Costs']; // Placeholder for actual patterns
-//   patternDropdown.innerHTML = patterns.map(pattern => `<option value="${pattern.toLowerCase()}">${pattern}</option>`).join('');
-//   patternDropdown.addEventListener('change', function() {
-//     displayPatternDetails(this.value);
-//   });
-// }
-
-// function displayPatternDetails(patternValue) {
-//   const patternDetails = document.getElementById('patternDetails');
-//   const details = {
-//     'nagging': 'Details about Nagging...',
-//     'misdirection': 'Details about Misdirection...',
-//     'hidden costs': 'Details about Hidden Costs...'
-//   };
-//   patternDetails.style.display = 'block';
-//   patternDetails.innerHTML = `
-//     <h3>${patternValue.charAt(0).toUpperCase() + patternValue.slice(1)}</h3>
-//     <p>${details[patternValue]}</p>
-//   `;
-// }
-
 function fetchEducativeContent() {
   const educativeContent = document.getElementById('educativeContent');
-  // Placeholder for fetching educative content
   educativeContent.innerHTML = 'Daily tip: Keep an eye out for surprise charges during...';
 }
 

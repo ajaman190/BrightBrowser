@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import UserProfile, Whitelist
+from scan.models import DarkPatternType
 from datetime import datetime, timedelta
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -25,16 +26,22 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         except ValidationError as e:
             raise serializers.ValidationError({"password": list(e.messages)})
         return attrs
-
+    
     def create(self, validated_data):
-        user = User.objects.create_user(
-            email=validated_data['email'],
-            username=validated_data['email'],
-            password=validated_data['password'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
-        )
-        return user
+            user = User.objects.create_user(
+                email=validated_data['email'],
+                username=validated_data['email'],
+                password=validated_data['password'],
+                first_name=validated_data['first_name'],
+                last_name=validated_data['last_name']
+            )
+            allowed_patterns = '|'.join(DarkPatternType.objects.values_list('title', flat=True))
+
+            UserProfile.objects.update_or_create(
+                user=user,
+                defaults={'allowed_pattern': allowed_patterns}
+            )
+            return user
 
 class UserLoginSerializer(serializers.Serializer):
     email = serializers.EmailField()

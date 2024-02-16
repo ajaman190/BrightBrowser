@@ -34,8 +34,8 @@
         "pages/*.html"
     ],
     "browser_action": {
-        "default_icon": "icons/icon48.png",
-        // "default_popup": "pages/settings.html",
+        "default_icon": "assets/icons/logo.png",
+        // "default_popup": "pages/main.html",
         "default_popup": "pages/splash.html",
         "default_title": "BrightBrowse"
     },

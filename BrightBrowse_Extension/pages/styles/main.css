@@ -16,7 +16,7 @@
 #website-info {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: flex-start;
 }
 
 #website-info img {
