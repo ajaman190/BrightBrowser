@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -68,10 +70,11 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r'^moz-extension://5c8b1676-5826-407c-8f6d-04f728925679$',
+    r'^moz-extension://4fe9536d-b2d8-44b4-bd0c-d9d3bb18a710$'
 ]
 
 ROOT_URLCONF = 'BrightBrowse_Backend.urls'

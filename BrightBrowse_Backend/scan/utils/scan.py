@@ -4,13 +4,13 @@ import re
 import string
 from nltk.stem import WordNetLemmatizer
 import nltk
-
+import sklearn
 nltk.download('wordnet')
 
 class DarkPatternDetector:
     def __init__(self):
-        self.vectorizer = self._load_pickle('models/fitted_count_vectorizer.pkl')
-        self.model = self._load_pickle('models/best_logistic_model.pkl')
+        self.vectorizer = self._load_pickle('scan/utils/models/fitted_count_vectorizer.pkl')
+        self.model = self._load_pickle('scan/utils/models/best_logistic_model.pkl')
         self.label_mapping = {
             0: "No Dark Pattern",
             1: "Urgency",

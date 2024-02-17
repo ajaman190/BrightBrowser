@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "BrightBrowse",
+    "name": "Bright Browse",
     "version": "1.0",
     "description": "Detects and reports dark patterns on the web.",
     "icons": {

@@ -8,8 +8,8 @@ from users.models import UserProfile
 from .serializers import ScanSerializer, ResultSerializer, DarkPatternTypeSerializer, SubDarkPatternTypeSerializer, ReportSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from utils.main import main
-from utils.malicious import malecious_url_check
+from .utils.main import main
+# from .utils.malicious import malecious_url_check
 
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
@@ -40,27 +40,31 @@ def create_scan(request):
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
 def start_scan(request):
-    scan_id = request.data.get('scan_id')
-    content = request.data.get('content')
+    try:
 
-    user_profile = get_object_or_404(UserProfile, user=request.user)
-    allowed_pattern = user_profile.allowed_pattern
-    scan = Scan.objects.get(scan_id=scan_id)
+        scan_id = request.data.get('scan_id')
+        content = request.data.get('content')
 
-    results = main(scan.url, scan.severity, content, allowed_pattern)
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        allowed_pattern = user_profile.allowed_pattern
+        scan = Scan.objects.get(scan_id=scan_id)
 
-    if not results:
-        return Response({"message": "Scan failed or no results found."}, status=400)
+        results = main(scan.url, scan.severity, content, allowed_pattern)
 
-    response_data = {
-        "message": "Scan complete",
-        "scan_id": scan.scan_id,
-        "url": scan.url,
-        "severity": scan.severity,
-        "results": results
-    }
-    return Response(response_data, status=200)
+        if not results:
+            return Response({"message": "Scan failed or no results found."}, status=400)
 
+        response_data = {
+            "message": "Scan complete",
+            "scan_id": scan.scan_id,
+            "url": scan.url,
+            "severity": scan.severity,
+            "results": results
+        }
+        return Response(response_data, status=200)
+    except Exception as e:
+        print("Error",e)
+        return Response({"message": str(e)}, status=400)
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
