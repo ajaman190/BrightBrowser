@@ -230,7 +230,6 @@ function displayPatternDetails(scanData, selectedPattern) {
 // }
 
 function highlightMatchingElements(response) {
-  console.log(response);
   
   function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
