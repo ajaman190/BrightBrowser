@@ -208,62 +208,42 @@ function displayPatternDetails(scanData, selectedPattern) {
   patternDetails.innerHTML = resultCards;
 }
 
-// function highlightMatchingElements(response) {
-//   response.forEach(e => {
-//       const escapedText = e.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-//       const regex = new RegExp(e, 'i');
-
-//       document.querySelectorAll('*').forEach(element => {
-//           if (regex.test(element.innerText) && !element.hasAttribute('data-highlighted')) {
-//               element.style.border = '2px solid red';
-//               element.setAttribute('data-highlighted', 'true');
-
-//               // Optionally, add a floating icon next to the element
-//               // const icon = document.createElement('img');
-//               // icon.src = 'URL_TO_YOUR_ICON'; // Set the URL to your icon
-//               // icon.style.cssText = 'position:absolute;width:20px;height:20px;';
-//               // element.style.position = 'relative';
-//               // element.insertBefore(icon, element.firstChild);
-//           }
-//       });
-//   });
-// }
-
 function highlightMatchingElements(response) {
-  
   function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
   const dpTexts = response.map(pattern => new RegExp(escapeRegExp(pattern.text), 'i'));
 
-  const targetSelectors = ['p', 'span', 'div', 'a', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-  const targetElements = document.querySelectorAll(targetSelectors.join(','));
-
-  targetElements.forEach(element => {
-    if (!element.hasAttribute('data-highlighted')) {
-      const elementText = element.innerText || element.textContent;
-
-      if (dpTexts.some(pattern => pattern.test(elementText))) {
-        element.style.border = '2px solid red';
-        element.setAttribute('data-highlighted', 'true');
+  const targetSelectors = ['p', 'a', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  
+  function applyHighlights() {
+    const targetElements = document.querySelectorAll(targetSelectors.join(','));
+  
+    targetElements.forEach(element => {
+      if (!element.hasAttribute('data-highlighted')) {
+        const elementText = element.innerText || element.textContent;
+  
+        if (dpTexts.some(pattern => pattern.test(elementText))) {
+          element.style.border = '2px solid red';
+          element.setAttribute('data-highlighted', 'true');
+        }
       }
-    }
-  });
-}
+    });
+  }
 
-// Uncomment below to add an icon next to the highlighted element
-/*
-const icon = document.createElement('img');
-icon.src = 'URL_TO_YOUR_ICON'; // Provide the URL to your icon image
-icon.style.cssText = 'position:absolute;width:20px;height:20px;margin-left:-22px;cursor:pointer;';
-icon.setAttribute('title', 'Detected Dark Pattern');
-element.style.position = 'relative';
-if (element.firstChild) {
-  element.insertBefore(icon, element.firstChild);
-} else {
-  element.appendChild(icon);
+  applyHighlights();
+
+  // Use MutationObserver to handle dynamic content
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.addedNodes.length) {
+        applyHighlights();
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 }
-*/
 
 function fetchEducativeContent() {
   const educativeContent = document.getElementById('educativeContent');

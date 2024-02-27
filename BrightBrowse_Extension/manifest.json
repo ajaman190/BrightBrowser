@@ -21,13 +21,10 @@
     "background": {
       "scripts": ["scripts/background.js"]
     },
-    "action": {
-      "default_popup": "pages/splash.html"
-    },
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["scripts/*.js"]
+            "js": ["scripts/main.js", "scripts/login.js", "scripts/background.js", "scripts/onboarding.js", "scripts/register.js", "scripts/report-dark-pattern.js", "scripts/settings.js", "scripts/splash.js"]
         }
     ],
     "web_accessible_resources": [
@@ -39,7 +36,6 @@
         "default_title": "BrightBrowse"
     },
     "options_ui": {
-        "page": "options.html",
-        "chrome_style": true
+        "page": "options.html"
     }
 }
