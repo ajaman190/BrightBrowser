@@ -1,33 +1,53 @@
-# !pip install --upgrade openai
-from openai import OpenAI
+import openai
 import os
+import json
 
-client = OpenAI(api_key="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")
-# client = OpenAI(api_key=os.getenv("OPENAI_KEY"))
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def generate_solution_for_dark_pattern(input_data):
+def get_solutions(input_data, patterns):
+    if not isinstance(input_data, list) or not all(isinstance(item, dict) for item in input_data):
+        raise ValueError("Invalid input: Input data must be a list of dictionaries.")
+
+    patterns_str = ""
+    for pattern, sub_types in patterns.items():
+        patterns_str += f"{pattern}: {', '.join(sub_types)}\n"
+
+    prompt = ("Please analyze the following items based on their descriptions and the provided list of dark patterns and their sub-types. "
+              "For each item, identify the specific sub-type of dark pattern from the list based on the major type and the text provided. "
+              "Then, generate a solution that users can apply to identify and avoid being misled by this dark pattern. "
+              "The solution should be short, practical, easy to understand, and actionable for the general public. "
+              "Return the responses as an array of objects, each containing the 'item', 'sub_dark_pattern', and 'solution'.\n\n"
+              "List of Dark Patterns and their Sub-Types:\n" + patterns_str + "\n\nItems:\n")
+    
+    for i, item in enumerate(input_data, start=1):
+        prompt += f"{i}. Major Dark Pattern Type: {item['dark_pattern']}, Text Indicating Dark Pattern: {item['text']}\n"
+    
+    prompt += '\nGenerate the response in this format: [{"item": <item_number>, "sub_dark_pattern": <detected_sub_dark_pattern>, "solution": <solution>}, ...]'
 
     try:
-        if not isinstance(input_data, dict):
-            return "Invalid input: Input data must be a dictionary."
-
-        prompt = (f"Given the detected dark pattern described below, please provide a practical and actionable solution to help users identify and avoid being misled by this pattern. The solution should be understandable by general audiences and applicable for immediate use.\n\n"
-                  f"Detected Dark Pattern Type: {input_data['dark_pattern']}\n"
-                  f"Context (Where it was found): {input_data['text']}\n\n")
-
-                #   f"Specific Example (Sub-Dark Pattern): {input_data['sub_dark_pattern']}\n"
-
-        response = client.completions.create(
-          model = 'gpt-3.5-turbo-instruct',
-          prompt=prompt,
-          temperature=0.5,
-          max_tokens=60,
-          top_p=1.0,
-          frequency_penalty=0.0,
-          presence_penalty=0.0
+        response = openai.completions.create(
+            model=os.getenv("OPENAI_MODEL"),
+            prompt=prompt,
+            temperature=0.5,
+            max_tokens=2048,
+            top_p=1.0,
+            frequency_penalty=0.0,
+            presence_penalty=0.0
         )
-        solution = response.choices[0].text.strip()
-        return solution
+        response = response.choices[0].text.strip()
+        response_data = json.loads(response)
 
+        results = []
+        for item_response in response_data:
+            item_index = item_response['item'] - 1
+            results.append({
+                "text": input_data[item_index]['text'],
+                "dark_pattern": input_data[item_index]['dark_pattern'],
+                "sub_dark_pattern": item_response['sub_dark_pattern'],
+                "solution": item_response['solution']
+            })
+
+        return results
     except Exception as e:
-        return f"An unexpected error occurred: {e}"
+        raise RuntimeError(f"An unexpected error occurred: {e}")
+

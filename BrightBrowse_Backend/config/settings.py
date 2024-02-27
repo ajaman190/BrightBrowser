@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,16 +74,10 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r'^moz-extension://5c8b1676-5826-407c-8f6d-04f728925679$',
+    r'^moz-extension://8b51d11d-1534-4504-b812-737da6e9c4c1$'
 ]
 
-ROOT_URLCONF = 'BrightBrowse_Backend.urls'
-
-# Configure REST framework to use JWT for authentication
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -99,7 +95,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'BrightBrowse_Backend.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database

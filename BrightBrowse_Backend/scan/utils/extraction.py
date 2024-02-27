@@ -38,6 +38,7 @@ def extract_text_from_webpage_content(input_content):
     except Exception as e:
         return [], str(e)
 
+
 def extract_function(url, content):
     web_texts, web_error = extract_text_from_webpage(url)
     content_texts, content_error = extract_text_from_webpage_content(content)
@@ -46,11 +47,10 @@ def extract_function(url, content):
     combined_texts = list(set(web_texts + content_texts))
 
     # Handle errors
-    errors = []
     if web_error:
-        errors.append(f"Webpage error: {web_error}")
+        raise ValueError(f"Webpage error: {web_error}")
     if content_error:
-        errors.append(f"Content error: {content_error}")
+        raise ValueError(f"Content error: {content_error}")
 
-    return {"texts": combined_texts, "errors": errors}
+    return combined_texts
 

@@ -2,204 +2,20 @@ document.addEventListener('DOMContentLoaded', function() {
   initializePage();
 });
 
-
-let dummyDataIndex = localStorage.getItem('count') || 0;
-const dummyData = [
-  {
-      "scan_id": "123",
-      "url": "https://www.amazon.in/Graphite-Badminton-Racquet-Tension-Aerodynamic/dp/B0CKNGB9NZ/ref=sr_1_1_sspa?qid=1707489524&refinements=p_n_pct-off-with-tax%3A2665401031&s=sports&sr=1-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGZfYnJvd3Nl&psc=1",
-      "severity": "low",
-      "results": [
-          {
-              "index": "1",
-              "text": "In stock",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Scarcity",
-              "solution": "Check the delivery details before ordering"
-          },
-          {
-              "index": "2",
-              "text": "Order within 21 hrs 4 mins",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Urgency",
-              "solution": "See details of the offer before buying"
-          },
-          {
-              "index": "3",
-              "text": "Only 2 left in stock",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Scarcity",
-              "solution": "Check similar products for better pricing"
-          },
-          {
-              "index": "4",
-              "text": "10K+ viewed in past month",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "5",
-              "text": "I thanks Amazon for launching this quality product",
-              "dark_pattern": "Fake Review",
-              "sub_dark_pattern": "Scarcity",
-              "solution": "Look for reviews with detail description"
-          },
-          {
-              "index": "6",
-              "text": "Good Better Best",
-              "dark_pattern": "Fake Review",
-              "sub_dark_pattern": "Misdirection",
-              "solution": "Look for reviews with detail description"
-          },
-          {
-              "index": "7",
-              "text": "Sponsored",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Misdirection",
-              "solution": "Search for the same product in the e-commerce website"
-          },
-          {
-              "index": "8",
-              "text": "Sponsored",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Misdirection",
-              "solution": "Search for the same product in the e-commerce website"
-          },
-          {
-              "index": "",
-              "text": "Sponsored",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Misdirection",
-              "solution": "Search for the same product in the e-commerce website"
-          }
-      ]
-  },
-  {
-      "scan_id": "456",
-      "url": "https://www.ebay.com/b/OMEGA-Watches/31387/bn_3000908",
-      "severity": "high",
-      "results": [
-          {
-              "index": "0",
-              "text": "Benifits charity",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "1",
-              "text": "12 watching",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "2",
-              "text": "Only 1 left!",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Scarcity",
-              "solution": "Check similar products for better pricing"
-          },
-          {
-              "index": "3",
-              "text": "Only 1 left!",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Scarcity",
-              "solution": "Check similar products for better pricing"
-          },
-          {
-              "index": "4",
-              "text": "35 watching",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "5",
-              "text": "14 watching",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "6",
-              "text": "41 watching",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "7",
-              "text": "17 watching",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "8",
-              "text": "17 Sold!",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Scarcity",
-              "solution": "Check similar products for better pricing"
-          },
-          {
-              "index": "9",
-              "text": "39 watching",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Social proof",
-              "solution": "Check the product and ordering information in details"
-          },
-          {
-              "index": "10",
-              "text": "13h 16m",
-              "dark_pattern": "Deceptive UI Dark Pattern",
-              "sub_dark_pattern": "Urgency",
-              "solution": "Check offer details for more information"
-          }
-      ]
-  },
-  {
-    "scan_id": "789",
-    "url": "https://cart.ebay.com/",
-    "severity": "low",
-    "results": [
-      {
-        "index": "1",
-        "text": "You're signed out right now. To save these items or see your previously saved items, sign in.",
-        "dark_pattern": "Forced Action",
-        "sub_dark_pattern": "Forced Account Creation",
-        "solution": "Check the account creation details before commiting"
-      }
-    ]
-  },
-  {
-    "scan_id": "101112",
-    "url": "https://www.sportsdirect.com/",
-    "severity": "low",
-    "results": [
-      {
-        "index": "1",
-        "text": "Our website uses cookies and similar technologies to personalise the ads that are shown to you and to help give you the best experience on our websites. For more information see our Privacy and Cookie Policy",
-        "dark_pattern": "Trick Question Detection",
-        "sub_dark_pattern": "Misleading Pattern",
-        "solution": "Check the privacy agreement properly to understand further before proceeding"
-      }
-    ]
-  }
-]
-;
-
 async function initializePage() {
-  const autoScanSetting = JSON.parse(localStorage.getItem('auto_scan') || 'false');
-  updateScanningContainer(autoScanSetting ? 2 : 1);
-  
-  fetchWebsiteInfo();
+  const autoScanSetting = await JSON.parse(localStorage.getItem('auto_scan') || 'false');
+  const scanResults = await JSON.parse(localStorage.getItem('scanResults'));
+  const tabUrl = await fetchWebsiteInfo();
+  if(scanResults.url === tabUrl) {
+    updateScanningContainer(3, scanResults);
+  } else {
+    updateScanningContainer(autoScanSetting ? 2 : 1, {});
+  }
   fetchEducativeContent();
 }
 
 function fetchWebsiteInfo() {
-  browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+  return browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
     const currentTab = tabs[0];
     const tabUrl = currentTab.url;
     const faviconUrl = currentTab.favIconUrl || '../assets/icons/website-logo.png';
@@ -209,19 +25,20 @@ function fetchWebsiteInfo() {
       <img src="${faviconUrl}" class="browser_icon" alt="Website Icon">
       <span id="websiteURL" class="browser_url">${tabUrl.slice(0,36)+'...'}</span>
     `;
+    return tabUrl;
   }).catch((error) => {
-    return
+    return null;
   });
 }
 
-function updateScanningContainer(caseNumber) {
+function updateScanningContainer(caseNumber, scanResults) {
   const scanningContainer = document.getElementById('scanning-container');
   switch(caseNumber) {
     case 1:
         scanningContainer.innerHTML = `
           <button id="scanButton" class="button">Start Scan</button>
         `;
-        document.getElementById('scanButton').addEventListener('click', performScan);
+        document.getElementById('scanButton').addEventListener('click', createScan);
         break;
     case 2:
         scanningContainer.innerHTML = `
@@ -229,30 +46,10 @@ function updateScanningContainer(caseNumber) {
           <div id="cancelScanButton" class="button">Cancel Scan</div>
         `;
         document.getElementById('cancelScanButton').addEventListener('click', cancelScan);
-        performScan();
         break;
+    case 3:
+      displayScanResults(scanResults);
   }
-}
-
-function highlightMatchingElements(response) {
-  response.results.forEach(result => {
-      const escapedText = result.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(escapedText, 'i');
-
-      document.querySelectorAll('*').forEach(element => {
-          if (regex.test(element.innerText) && !element.hasAttribute('data-highlighted')) {
-              element.style.border = '2px solid red'; // Example of highlighting
-              element.setAttribute('data-highlighted', 'true'); // Mark element to avoid duplicate processing
-
-              // Optionally, add a floating icon next to the element
-              // const icon = document.createElement('img');
-              // icon.src = 'URL_TO_YOUR_ICON'; // Set the URL to your icon
-              // icon.style.cssText = 'position:absolute;width:20px;height:20px;';
-              // element.style.position = 'relative';
-              // element.insertBefore(icon, element.firstChild);
-          }
-      });
-  });
 }
 
 function extractAndJoinTextContent() {
@@ -280,83 +77,73 @@ function extractAndJoinTextContent() {
   return allText;
 }
 
-function performScan() {
+function createScan(){
   const scanningContainer = document.getElementById('scanning-container');
   scanningContainer.innerHTML = `
     <img src="../assets/icons/search.svg" class="search_icon"  alt="Scanning...">
     <div class="scanning-text">Scanning...</div>
   `;
-
-  browser.tabs.executeScript({
-    code: `(${extractAndJoinTextContent.toString()})()`
-  }).then((results) => {
-    let extractedContent = results[0];
-    console.log(extractedContent)
-
-    if(dummyDataIndex >= dummyData.length) dummyDataIndex = 0;
-    const scanData = dummyData[dummyDataIndex++];
-    localStorage.setItem('count', dummyDataIndex);
-    localStorage.setItem('scan_data', JSON.stringify(scanData));
-    setTimeout(() => {
-      displayScanResults(scanData);
-    }, 3000);
-    
-    // Example of how you might structure the data for your backend API call
-    // (Replace URL and options with your actual backend API details)
-    /*
-    fetch('YOUR_BACKEND_API_ENDPOINT', {
+  browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
+    fetch('http://localhost:8000/scan/create/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
       },
       body: JSON.stringify({
-        scan_id: scanData.scan_id,
-        url: tabs[0].url, // current web page URL from the browser tab
-        content: extractedContent, // Extracted content from the current page
-        scan_settings: {} // any additional scan settings if needed
+        url: tabs[0].url, 
+        severity: "high" 
       })
     })
     .then(response => response.json())
     .then(data => {
-      // Process and display the scan results from your backend here
-      displayScanResults(data);
-      highlightMatchingElements(data);
+      localStorage.setItem('scanid', data.scan_id)
+      performScan(data.scan_id);
     })
     .catch((error) => {
       console.error('Error:', error);
     });
-    */
-
   }).catch((error) => {
     console.error('Failed to extract content:', error);
   });
 }
 
-// function performScan() {
-//   // Simulate an API call to initiate scanning with a timeout
-//   const scanningContainer = document.getElementById('scanning-container');
-//   scanningContainer.innerHTML = `
-//     <img src="../assets/icons/search.svg" class="search_icon"  alt="Scanning...">
-//     <div class="scanning-text">Scanning...</div>
-//   `;
+function performScan(scan_id) {
+  const scandata = localStorage.getItem('scanResults')
+  const last_scan = scandata? JSON.parse(scandata):{}
+  if (Object.keys(last_scan).length==0 || last_scan.scan_id!=scan_id){
 
-//   // Todo:
-//   // API call to scan api, it requires the following parameters to in the request body:
-//   // 1. scan_id
-//   // 2. url: current web page
-//   // 3. content: if sensitivity HIGH then attach webpage extracted content condensed string by <bright-browser> else leave empty string ""
-//   // 5. scan_settings
+    browser.tabs.executeScript({
+      code: `(${extractAndJoinTextContent.toString()})()`
+    }).then((results) => {
+      let extractedContent = results[0];
 
-
-//   // Simulate a 3-second API call delay
-//   setTimeout(() => {
-//     if(dummyDataIndex >= dummyData.length) dummyDataIndex = 0;
-//     const scanData = dummyData[dummyDataIndex++];
-//     localStorage.setItem('count', dummyDataIndex);
-//     localStorage.setItem('scan_data', JSON.stringify(scanData));
-//     displayScanResults(scanData);
-//   }, 3000);
-// }
+      fetch('http://localhost:8000/scan/start/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify({
+          scan_id: scan_id,
+          content: extractedContent,
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('scanResults',JSON.stringify(data))
+        displayScanResults(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+      
+  
+    }).catch((error) => {
+      console.error('Failed to extract content:', error);
+    });
+  }
+}
 
 function cancelScan() {
   // Placeholder for functionality to cancel the scan
@@ -395,28 +182,24 @@ function populatePatternDropdown(scanData) {
 }
 
 function displayPatternDetails(scanData, selectedPattern) {
-  highlightMatchingElements(scanData);
   const patternDetails = document.getElementById('patternDetails');
-  let filteredResults = scanData.results;
-  
-  if (selectedPattern !== 'All') {
-    filteredResults = scanData.results.filter(result => result.sub_dark_pattern === selectedPattern);
-  }
+  let filteredResults = selectedPattern !== 'All'? scanData.results.filter(result => result.sub_dark_pattern === selectedPattern):scanData.results;
 
+  highlightMatchingElements(filteredResults);
   const resultCards = filteredResults.map(result => `
-    <div>
-      <div class="result-card">
-        <h3>${result.sub_dark_pattern}</h3>
-        <p>Reported as: ${result.dark_pattern}</p>
-        <p class="red">${result.text}</p>
-        <div class="solution-div">
-          <p class="green"><strong>Solution:</strong> ${result.solution}</p>
-        </div>
+    <div class="result-card">
+      <div class="result-card-inner">
+          <p class="result-pattern">${result.dark_pattern}</p>
+          <p class="result-sub-pattern">Sub Dark Pattern: ${result.sub_dark_pattern}</h3>
+          <p class="result-pattern-text">${result.text}</p>
       </div>
-      <div class="row">
-        <p>Feedback:</p>
-        <img src="../assets/icons/like.svg" alt="postive"/>
-        <img src="../assets/icons/dislike.svg" alt="false positve"/>
+      <div class="solution-div">
+          <p class="result-pattern-solution"><strong>Solution:</strong> ${result.solution}</p>
+      </div>
+      <div class="row items-center">
+          <p class="feedback">Feedback:</p>
+          <img src="../assets/icons/like.svg" alt="postive" class="feedback-icon"/>
+          <img src="../assets/icons/dislike.svg" alt="false positve" class="feedback-icon"/>
       </div>
     </div>
   `).join('');
@@ -424,6 +207,64 @@ function displayPatternDetails(scanData, selectedPattern) {
   patternDetails.style.display = 'block';
   patternDetails.innerHTML = resultCards;
 }
+
+// function highlightMatchingElements(response) {
+//   response.forEach(e => {
+//       const escapedText = e.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+//       const regex = new RegExp(e, 'i');
+
+//       document.querySelectorAll('*').forEach(element => {
+//           if (regex.test(element.innerText) && !element.hasAttribute('data-highlighted')) {
+//               element.style.border = '2px solid red';
+//               element.setAttribute('data-highlighted', 'true');
+
+//               // Optionally, add a floating icon next to the element
+//               // const icon = document.createElement('img');
+//               // icon.src = 'URL_TO_YOUR_ICON'; // Set the URL to your icon
+//               // icon.style.cssText = 'position:absolute;width:20px;height:20px;';
+//               // element.style.position = 'relative';
+//               // element.insertBefore(icon, element.firstChild);
+//           }
+//       });
+//   });
+// }
+
+function highlightMatchingElements(response) {
+  console.log(response);
+  
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+  const dpTexts = response.map(pattern => new RegExp(escapeRegExp(pattern.text), 'i'));
+
+  const targetSelectors = ['p', 'span', 'div', 'a', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  const targetElements = document.querySelectorAll(targetSelectors.join(','));
+
+  targetElements.forEach(element => {
+    if (!element.hasAttribute('data-highlighted')) {
+      const elementText = element.innerText || element.textContent;
+
+      if (dpTexts.some(pattern => pattern.test(elementText))) {
+        element.style.border = '2px solid red';
+        element.setAttribute('data-highlighted', 'true');
+      }
+    }
+  });
+}
+
+// Uncomment below to add an icon next to the highlighted element
+/*
+const icon = document.createElement('img');
+icon.src = 'URL_TO_YOUR_ICON'; // Provide the URL to your icon image
+icon.style.cssText = 'position:absolute;width:20px;height:20px;margin-left:-22px;cursor:pointer;';
+icon.setAttribute('title', 'Detected Dark Pattern');
+element.style.position = 'relative';
+if (element.firstChild) {
+  element.insertBefore(icon, element.firstChild);
+} else {
+  element.appendChild(icon);
+}
+*/
 
 function fetchEducativeContent() {
   const educativeContent = document.getElementById('educativeContent');

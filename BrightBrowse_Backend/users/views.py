@@ -1,9 +1,8 @@
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from middleware.auth import Authentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import UserProfile, Whitelist
 from .serializers import (UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer, WhitelistSerializer, UserDetailSerializer)
@@ -11,6 +10,7 @@ from .serializers import (UserRegistrationSerializer, UserLoginSerializer, UserP
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_user(request):
+    
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
@@ -27,14 +27,14 @@ def login_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def get_user_details(request):
     serializer = UserDetailSerializer(request.user)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['PATCH'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def update_settings(request):
     try:
@@ -52,7 +52,7 @@ def update_settings(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def get_settings(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)

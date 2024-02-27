@@ -2,17 +2,17 @@ import datetime
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from middleware.auth import Authentication
 from .models import Scan, Result, DarkPatternType, SubDarkPatternType, Report
 from users.models import UserProfile
 from .serializers import ScanSerializer, ResultSerializer, DarkPatternTypeSerializer, SubDarkPatternTypeSerializer, ReportSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from utils.main import main
-from utils.malicious import malecious_url_check
+from .utils.main import main
+# from .utils.malicious import malecious_url_check
 
 @api_view(['POST'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def create_scan(request):
     url = request.data.get('url')
@@ -37,7 +37,7 @@ def create_scan(request):
     return Response({'message': message, 'scan_id': scan.scan_id}, status=200)
 
 @api_view(['POST'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def start_scan(request):
     scan_id = request.data.get('scan_id')
@@ -47,7 +47,13 @@ def start_scan(request):
     allowed_pattern = user_profile.allowed_pattern
     scan = Scan.objects.get(scan_id=scan_id)
 
-    results = main(scan.url, scan.severity, content, allowed_pattern)
+    dark_patterns = DarkPatternType.objects.all()
+    patterns = {}
+    for dark_pattern in dark_patterns:
+        sub_patterns = SubDarkPatternType.objects.filter(dark_pattern_type=dark_pattern)
+        patterns[dark_pattern.title] = [sub_pattern.title for sub_pattern in sub_patterns]
+
+    results = main(scan.url, scan.severity, content, allowed_pattern, patterns)
 
     if not results:
         return Response({"message": "Scan failed or no results found."}, status=400)
@@ -62,7 +68,7 @@ def start_scan(request):
     return Response(response_data, status=200)
 
 @api_view(['GET'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def fetch_scan_result(request, scan_id):
     results = Result.objects.filter(scan_id__scan_id=scan_id)
@@ -70,7 +76,7 @@ def fetch_scan_result(request, scan_id):
     return Response(serializer.data, status=200)
 
 @api_view(['GET'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def fetch_past_scan_results(request):
     scans = Scan.objects.filter(scan_id__startswith=f"{request.user.id}_").order_by('-created_at')[:5]
@@ -82,7 +88,7 @@ def fetch_past_scan_results(request):
     return Response(result_data, status=200)
 
 @api_view(['POST'])
-@authentication_classes([JWTAuthentication])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def report_pattern(request):
     user_id = request.user.id
@@ -91,9 +97,9 @@ def report_pattern(request):
     scan_data = {
         'scan_id': scan_id,
         'url': request.data.get('url'),
-        'severity': 'low',# Default value as per requirement
-        'success': True,  # Assuming success is True for reported patterns
-        'risk_score': 0,  # Assuming risk score is 0 for manual reports
+        'severity': 'low',
+        'success': True,
+        'risk_score': 0,
     }
     scan_serializer = ScanSerializer(data=scan_data)
     if scan_serializer.is_valid():

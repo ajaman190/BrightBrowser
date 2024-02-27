@@ -45,7 +45,7 @@ function login(email, password) {
   })
   .then(data => {
     console.log("Data: ", JSON.stringify(data))
-      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('accessToken', data.access);
       window.location.href = 'main.html';
   })
   .catch(error => {

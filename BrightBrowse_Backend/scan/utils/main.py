@@ -2,7 +2,7 @@ from .extraction import extract_function
 from .scan import find_dark_patterns
 from .prediction import get_solutions
 
-def main(url, severity, content, allowed_pattern):
+def main(url, severity, content, allowed_pattern, patterns):
     try:
         content_to_scan = '' if severity != 'high' else content
         extracted_texts = extract_function(url, content_to_scan)
@@ -15,7 +15,7 @@ def main(url, severity, content, allowed_pattern):
         allowed_patterns_list = allowed_pattern.split('|')
         filtered_detected_patterns = [pattern for pattern in detected_patterns if pattern['dark_pattern'] not in allowed_patterns_list]
 
-        solutions = get_solutions(filtered_detected_patterns)
+        solutions = get_solutions(filtered_detected_patterns, patterns)
 
         return solutions
     except Exception as e:

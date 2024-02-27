@@ -3,10 +3,13 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
 from .models import UserProfile, Whitelist
 from scan.models import DarkPatternType
 from datetime import datetime, timedelta
+import jwt
+import os
+
+SECRET = os.getenv('JWT_SECRET_KEY')
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
@@ -48,16 +51,21 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
     def validate(self, attrs):
-        user = authenticate(username=attrs['email'], password=attrs['password'])  # Use username for authentication
+        user = authenticate(username=attrs['email'], password=attrs['password'])
         if not user:
-            raise serializers.ValidationError('Unable to log in with provided credentials.')
+            raise serializers.ValidationError('Incorrect credentials.')
         if not user.is_active:
             raise serializers.ValidationError('User account is disabled.')
-        refresh = RefreshToken.for_user(user)
+        
+        payload = {
+            "id": user.id,
+            "exp": datetime.utcnow() + timedelta(days=90),
+            "iat": datetime.utcnow(),
+        }
+
+        token = jwt.encode(payload, SECRET, algorithm='HS256')
         return {
-            'access': str(refresh.access_token),
-            'user_id': user.id,
-            'exp': (datetime.now() + timedelta(days=90)).date()
+            'access': str(token)
         }
 
 class UserProfileSerializer(serializers.ModelSerializer):

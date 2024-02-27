@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "BrightBrowse",
+    "name": "Bright Browse",
     "version": "1.0",
     "description": "Detects and reports dark patterns on the web.",
     "icons": {
@@ -35,7 +35,6 @@
     ],
     "browser_action": {
         "default_icon": "assets/icons/logo.png",
-        // "default_popup": "pages/main.html",
         "default_popup": "pages/splash.html",
         "default_title": "BrightBrowse"
     },

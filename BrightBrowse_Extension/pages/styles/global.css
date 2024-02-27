@@ -108,6 +108,10 @@ p {
     align-items: center;
 }
 
+.items-center {
+    align-items: center;
+}
+
 #backButton {
     color: #666;
     padding: 4px;
