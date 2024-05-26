@@ -33,14 +33,14 @@ def get_user_details(request):
     serializer = UserDetailSerializer(request.user)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-@api_view(['PATCH'])
+@api_view(['POST'])
 @authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def update_settings(request):
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-    except UserProfile.DoesNotExist:
-        user_profile = UserProfile.objects.create(user=request.user)
+    # try:
+    user_profile = UserProfile.objects.get(user=request.user)
+    # except UserProfile.DoesNotExist:
+    #     user_profile = UserProfile.objects.create(user=request.user)
     serializer = UserProfileSerializer(user_profile, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()

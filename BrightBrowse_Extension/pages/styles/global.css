@@ -112,6 +112,10 @@ p {
     align-items: center;
 }
 
+.justify-between{
+    justify-content: space-between;
+}
+
 #backButton {
     color: #666;
     padding: 4px;

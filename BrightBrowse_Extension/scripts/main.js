@@ -6,7 +6,7 @@ async function initializePage() {
   const autoScanSetting = await JSON.parse(localStorage.getItem('auto_scan') || 'false');
   const scanResults = await JSON.parse(localStorage.getItem('scanResults'));
   const tabUrl = await fetchWebsiteInfo();
-  if(scanResults.url === tabUrl) {
+  if(scanResults?.url === tabUrl) {
     updateScanningContainer(3, scanResults);
   } else {
     updateScanningContainer(autoScanSetting ? 2 : 1, {});
@@ -41,11 +41,7 @@ function updateScanningContainer(caseNumber, scanResults) {
         document.getElementById('scanButton').addEventListener('click', createScan);
         break;
     case 2:
-        scanningContainer.innerHTML = `
-          <img src="../assets/icons/search.svg" class="search_icon" alt="Scanning...">
-          <div id="cancelScanButton" class="button">Cancel Scan</div>
-        `;
-        document.getElementById('cancelScanButton').addEventListener('click', cancelScan);
+        createScan();
         break;
     case 3:
       displayScanResults(scanResults);
@@ -178,6 +174,16 @@ function populatePatternDropdown(scanData) {
 
   patternDropdown.addEventListener('change', function() {
     displayPatternDetails(scanData, this.value);
+
+  });
+  
+  // Defualt ALL
+  displayPatternDetails(scanData, 'All');
+  const filteredResultsString = JSON.stringify(scanData.results).replace(/'/g, "\\'");
+  browser.tabs.executeScript({
+    code: `(${highlightMatchingElements.toString()})(${filteredResultsString})`
+  }).catch(err => {
+    console.error('Failed to inject highlighting script:', err);
   });
 }
 
@@ -185,7 +191,6 @@ function displayPatternDetails(scanData, selectedPattern) {
   const patternDetails = document.getElementById('patternDetails');
   let filteredResults = selectedPattern !== 'All'? scanData.results.filter(result => result.sub_dark_pattern === selectedPattern):scanData.results;
 
-  highlightMatchingElements(filteredResults);
   const resultCards = filteredResults.map(result => `
     <div class="result-card">
       <div class="result-card-inner">
@@ -213,7 +218,6 @@ function highlightMatchingElements(response) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
   const dpTexts = response.map(pattern => new RegExp(escapeRegExp(pattern.text), 'i'));
-
   const targetSelectors = ['p', 'a', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   
   function applyHighlights() {
@@ -245,19 +249,37 @@ function highlightMatchingElements(response) {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
+// function highlightMatchingElements(response) {
+//   response.forEach(e => {
+//       const escapedText = e.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+//       const regex = new RegExp(e, 'i');
+
+//       document.querySelectorAll('span', 'p', 'a', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6').forEach(element => {
+//           if (regex.test(element.innerText) && !element.hasAttribute('data-highlighted')) {
+//               element.style.border = '2px solid red';
+//               element.setAttribute('data-highlighted', 'true');
+
+//               // Optionally, add a floating icon next to the element
+//               // const icon = document.createElement('img');
+//               // icon.src = 'URL_TO_YOUR_ICON'; // Set the URL to your icon
+//               // icon.style.cssText = 'position:absolute;width:20px;height:20px;';
+//               // element.style.position = 'relative';
+//               // element.insertBefore(icon, element.firstChild);
+//           }
+//       });
+//   });
+// }
+
 function fetchEducativeContent() {
   const educativeContent = document.getElementById('educativeContent');
   educativeContent.innerHTML = 'Daily tip: Keep an eye out for surprise charges during...';
 }
 
 // Menu interaction
-document.getElementById('menuButton').addEventListener('click', toggleMenu);
-
-function toggleMenu() {
+document.getElementById('menuButton').addEventListener('click', function() {
   const menu = document.getElementById('menu');
   menu.classList.toggle('menu-open');
-}
-
+});
 
 window.addEventListener('click', function(event) {
   const menu = document.getElementById('menu');
@@ -267,24 +289,23 @@ window.addEventListener('click', function(event) {
 });
 
 // Menu navigation
-document.getElementById('profileButton').addEventListener('click', function() {
-  // Redirect to profile page
-});
-document.getElementById('historyButton').addEventListener('click', function() {
-  // Redirect to history & insights page
-});
-document.getElementById('educationMenuButton').addEventListener('click', function() {
-  // Redirect to education page
-});
-document.getElementById('feedbackButton').addEventListener('click', function() {
-  // Redirect to feedback page
-});
+// document.getElementById('profileButton').addEventListener('click', function() {
+//   // Redirect to profile page
+// });
+// document.getElementById('historyButton').addEventListener('click', function() {
+//   // Redirect to history & insights page
+// });
+// document.getElementById('educationMenuButton').addEventListener('click', function() {
+//   // Redirect to education page
+// });
+// document.getElementById('feedbackButton').addEventListener('click', function() {
+//   // Redirect to feedback page
+// });
 
 document.getElementById('logoutButton').addEventListener('click', function() {
   localStorage.clear();
   window.location.href = 'onboarding.html';
 });
-
 
 document.getElementById('addDarkPatternButton').addEventListener('click', function() {
   window.location.href = 'report-dark-pattern.html';
@@ -294,11 +315,11 @@ document.getElementById('settingsButton').addEventListener('click', function() {
   window.location.href = 'settings.html';
 });
 
-document.getElementById('notificationButton').addEventListener('click', function() {
-  window.location.href = 'notifications.html';
-});
+// document.getElementById('notificationButton').addEventListener('click', function() {
+//   window.location.href = 'notifications.html';
+// });
 
 // Footer education button interaction
-document.getElementById('educationButton').addEventListener('click', function() {
-  // Could be used to show/hide educational content or navigate to an educational page
-});
+// document.getElementById('educationButton').addEventListener('click', function() {
+//   // Could be used to show/hide educational content or navigate to an educational page
+// });

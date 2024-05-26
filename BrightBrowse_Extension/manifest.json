@@ -1,13 +1,13 @@
 {
-    "manifest_version": 2,
-    "name": "Bright Browse",
-    "version": "1.0",
-    "description": "Detects and reports dark patterns on the web.",
-    "icons": {
+  "manifest_version": 2,
+  "name": "Bright Browse",
+  "version": "1.0",
+  "description": "Detects and reports dark patterns on the web.",
+  "icons": {
       "48": "assets/icons/logo.png",
       "96": "assets/icons/logo.png"
-    },
-    "permissions": [
+  },
+  "permissions": [
       "tabs",
       "activeTab",
       "notifications",
@@ -17,25 +17,34 @@
       "webNavigation",
       "http://localhost:8000/*",
       "https://localhost:8000/*"
-    ],
-    "background": {
-      "scripts": ["scripts/background.js"]
-    },
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["scripts/main.js", "scripts/login.js", "scripts/background.js", "scripts/onboarding.js", "scripts/register.js", "scripts/report-dark-pattern.js", "scripts/settings.js", "scripts/splash.js"]
-        }
-    ],
-    "web_accessible_resources": [
-        "pages/*.html"
-    ],
-    "browser_action": {
-        "default_icon": "assets/icons/logo.png",
-        "default_popup": "pages/splash.html",
-        "default_title": "BrightBrowse"
-    },
-    "options_ui": {
-        "page": "options.html"
-    }
+  ],
+  "background": {
+      "scripts": ["scripts/background.js"],
+      "persistent": true
+  },
+  "content_scripts": [
+      {
+          "matches": ["<all_urls>"],
+          "js": [
+              "scripts/main.js",
+              "scripts/login.js",
+              "scripts/onboarding.js",
+              "scripts/register.js",
+              "scripts/report-dark-pattern.js",
+              "scripts/settings.js",
+              "scripts/splash.js"
+          ]
+      }
+  ],
+  "web_accessible_resources": [
+      "pages/*.html"
+  ],
+  "browser_action": {
+      "default_icon": "assets/icons/logo.png",
+      "default_popup": "pages/splash.html",
+      "default_title": "BrightBrowse"
+  },
+  "options_ui": {
+      "page": "pages/options.html"
+  }
 }

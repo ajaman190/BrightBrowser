@@ -16,7 +16,7 @@ SEVERITY_CHOICES = [
 
 class UserProfile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    severity = models.CharField(max_length=6, choices=SEVERITY_CHOICES)
+    severity = models.CharField(max_length=6, choices=SEVERITY_CHOICES, default=SEVERITY_CHOICES[0])
     allowed_pattern = models.TextField()  # Patterns joined by '|'
     auto_scan = models.BooleanField(default=False)
 

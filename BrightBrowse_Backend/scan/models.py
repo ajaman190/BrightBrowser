@@ -49,7 +49,7 @@ class Report(BaseModel):
         return self._id
 
 class Result(BaseModel):
-    scan_id = models.OneToOneField(Scan, on_delete=models.CASCADE, primary_key=True)
+    scan_id = models.ForeignKey(Scan, on_delete=models.CASCADE)
     index = models.TextField()
     text = models.TextField()
     flag = models.IntegerField()

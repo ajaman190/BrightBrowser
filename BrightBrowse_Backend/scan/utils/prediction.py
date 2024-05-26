@@ -12,17 +12,15 @@ def get_solutions(input_data, patterns):
     for pattern, sub_types in patterns.items():
         patterns_str += f"{pattern}: {', '.join(sub_types)}\n"
 
-    prompt = ("Please analyze the following items based on their descriptions and the provided list of dark patterns and their sub-types. "
-              "For each item, identify the specific sub-type of dark pattern from the list based on the major type and the text provided. "
-              "Then, generate a solution that users can apply to identify and avoid being misled by this dark pattern. "
-              "The solution should be short, practical, easy to understand, and actionable for the general public. "
+    prompt = ("For each item, identify the specific sub-type of dark pattern from the list based on the major dark pattern type and the text provided. "
+              "Then, generate a short one liner, practical, easy to understand, and actionable solution that users(general public) can apply to identify and avoid being misled by this dark pattern and the dark pattern indicating text."
               "Return the responses as an array of objects, each containing the 'item', 'sub_dark_pattern', and 'solution'.\n\n"
               "List of Dark Patterns and their Sub-Types:\n" + patterns_str + "\n\nItems:\n")
     
     for i, item in enumerate(input_data, start=1):
         prompt += f"{i}. Major Dark Pattern Type: {item['dark_pattern']}, Text Indicating Dark Pattern: {item['text']}\n"
     
-    prompt += '\nGenerate the response in this format: [{"item": <item_number>, "sub_dark_pattern": <detected_sub_dark_pattern>, "solution": <solution>}, ...]'
+    prompt += '\nGenerate the response strictly in this format: [{"item": <item_number>, "sub_dark_pattern": <detected_sub_dark_pattern>, "solution": <solution>}, ...]'
 
     try:
         response = openai.completions.create(
@@ -49,5 +47,12 @@ def get_solutions(input_data, patterns):
 
         return results
     except Exception as e:
-        raise RuntimeError(f"An unexpected error occurred: {e}")
+        results = []
+        for item in input_data:
+            updated_item = item.copy()
+            updated_item["sub_dark_pattern"] = ""
+            updated_item["solution"] = ""
+            results.append(updated_item)
+        return results
+        # raise RuntimeError(f"An unexpected error occurred: {e}")
 

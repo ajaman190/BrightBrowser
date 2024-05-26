@@ -8,41 +8,38 @@
 </head>
 <body>
     <div id="header">
-        <img id="backButton" src="../assets/icons/chevron-left.svg" alt="back">
+        <img id="backButton" src="../assets/icons/chevron-left.svg" alt="Back button">
         <h2>Settings</h2>
     </div>
     <div id="settings-container">
         <div class="column">
             <label for="sensitivityLevel">Sensitivity Level</label>
-            <div class="row"> 
-                <input type="range" id="sensitivityLevel" min="1" max="3">
+            <div class="row items-center justify-between"> 
+                <input type="range" id="sensitivityLevel" min="1" max="2" aria-label="Sensitivity Level">
                 <div id="sensitivityLabels">
-                    <span>Low</span><span>Medium</span><span>High</span>
+                    <span id="lowLabel" class="sensivityContainer">Low</span>
+                    <span id="highLabel" class="sensivityContainer" style="display:none;">High</span>
                 </div>
             </div>
         </div>
 
-        <fieldset>
-            <label for="sensitivityLevel">Selected Patterns:</label>
-            <!-- <legend>Selected Patterns:</legend> -->
-            <label><input type="checkbox" name="patterns" value="falseUrgency"> False Urgency</label>
-            <label><input type="checkbox" name="patterns" value="basketSneaking"> Basket Sneaking</label>
-            <label><input type="checkbox" name="patterns" value="confirmShaming"> Confirm Shaming</label>
-            <label><input type="checkbox" name="patterns" value="forcedAction"> Forced Action</label>
-            <label><input type="checkbox" name="patterns" value="subscriptionTrap"> Subscription Trap</label>
+        <label>Selected Patterns:</label>
+        <fieldset id="allowedPatternList">
+            <legend></legend>
+            <!-- Patterns will be populated here by JavaScript -->
         </fieldset>
 
-        <div>
+        <div class="row items-center justify-between">
             <label for="automaticScanning">Automatic Scanning</label>
-            <input type="checkbox" id="automaticScanning" checked>
+            <input type="checkbox" id="automaticScanning" aria-label="Automatic Scanning">
         </div>
 
-        <div id="whitelist">
+        <div id="whitelist" class="row items-center justify-between">
             <label>Whitelist Websites</label>
-            <button id="addWebsite">+</button>
+            <button id="addWebsite" aria-label="Add Website">+</button>
         </div>
         <div id="whitelistEntries">
-            <!-- Whitelisted websites will be added here -->
+            <!-- Whitelisted websites entries will be added here by JavaScript -->
         </div>
 
         <button id="saveButton">Save</button>

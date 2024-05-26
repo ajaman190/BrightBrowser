@@ -55,7 +55,18 @@ def start_scan(request):
 
     results = main(scan.url, scan.severity, content, allowed_pattern, patterns)
 
-    if not results:
+    if results:
+        for result_data in results:
+            Result.objects.create(
+                scan_id=scan,
+                text=result_data["text"],
+                dark_pattern=result_data["dark_pattern"],
+                sub_dark_pattern=result_data["sub_dark_pattern"],
+                solution=result_data["solution"],
+                index="",
+                flag=0,
+            )
+    else:
         return Response({"message": "Scan failed or no results found."}, status=400)
 
     response_data = {
@@ -114,6 +125,7 @@ def report_pattern(request):
     return Response(scan_serializer.errors, status=400)
 
 @api_view(['GET'])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def fetch_dark_pattern_types(request):
     dark_pattern_types = DarkPatternType.objects.all()
@@ -121,6 +133,7 @@ def fetch_dark_pattern_types(request):
     return Response(serializer.data, status=200)
 
 @api_view(['GET'])
+@authentication_classes([Authentication])
 @permission_classes([IsAuthenticated])
 def fetch_sub_dark_pattern_types(request):
     sub_dark_pattern_types = SubDarkPatternType.objects.all()

@@ -73,8 +73,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r'^moz-extension://5c8b1676-5826-407c-8f6d-04f728925679$',
-    r'^moz-extension://8b51d11d-1534-4504-b812-737da6e9c4c1$'
+    r'^moz-extension://e1c4446a-c880-40a7-a647-b383a2bb648d$',
+    r'^moz-extension://f0bf6988-2cec-4831-a9f5-c48eb9baab27$'
 ]
 
 ROOT_URLCONF = 'config.urls'
